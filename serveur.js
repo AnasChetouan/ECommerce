@@ -14,6 +14,8 @@ const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectId;
 const url = "mongodb://localhost:27017";
 
+app.listen(8888);
+
 MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
     let db = client.db("ESTELLE");
 
@@ -26,6 +28,19 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
             });
         } catch(e) {
             console.log("Erreur sur /produits : " + e);
+            res.end(JSON.stringify([]));
+        }
+    });
+
+    app.get("/produits/:categorie", (req, res) => {
+        let categorie = req.params.categorie;
+        console.log("/produits/"+categorie);
+        try{
+            db.collection("produits").find({type:categorie}).toArray((err, documents) => {
+                res.end(JSON.stringify(documents));
+            });
+        } catch(e) {
+            console.log("Erreur sur /produits/"+categorie+" : " + e);
             res.end(JSON.stringify([]));
         }
     });
@@ -47,6 +62,4 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
     });
 
 
-})
-
-app.listen(8888);
+});
