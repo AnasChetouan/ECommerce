@@ -64,6 +64,65 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         }
     });
 
+
+        /* Liste des materiaux de produits */
+        app.get("/materiaux", (req, res) => {
+            console.log("/materiaux");
+            materiaux = [];
+            try{
+                db.collection("materiaux").find().toArray((err, documents) => {
+                    for (let doc of documents) {
+                        if (!materiaux.includes(doc.materiaux)) 
+                        materiaux.push(doc.materiaux);
+                    }
+                    console.log("Renvoi de "+JSON.stringify(materiaux));
+                    res.end(JSON.stringify(materiaux));
+                });
+            } catch(e) {
+                console.log("Erreur sur /materiaux : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
+
+        /* Liste des materiauxPrincipaux de produits */
+        app.get("/materiauxPrincipaux", (req, res) => {
+            console.log("/materiauxPrincipaux");
+            materiaux = [];
+            try{
+                db.collection("produits").find().toArray((err, documents) => {
+                    for (let doc of documents) {
+                        if (!materiaux.includes(doc.materiaux.materiau1)) 
+                        materiaux.push(doc.materiaux.materiau1);
+                    }
+                    console.log("Renvoi de "+JSON.stringify(materiaux));
+                    res.end(JSON.stringify(materiaux));
+                });
+            } catch(e) {
+                console.log("Erreur sur /materiauxPrincipaux : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
+        /* Liste des materiauxSecondaires de produits */
+        app.get("/materiauxSecondaires", (req, res) => {
+            console.log("/materiauxSecondaires");
+            materiaux = [];
+            try{
+                db.collection("produits").find().toArray((err, documents) => {
+                    for (let doc of documents) {
+                        if (!materiaux.includes(doc.materiaux.materiau2)) 
+                        materiaux.push(doc.materiaux.materiau2);
+                    }
+                    console.log("Renvoi de "+JSON.stringify(materiaux));
+                    res.end(JSON.stringify(materiaux));
+                });
+            } catch(e) {
+                console.log("Erreur sur /materiauxSecondaires : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
     /* Connexion */
     app.post("/membre/connexion", (req, res) => {
         console.log("/utilisateurs/connexion avec "+JSON.stringify(req.body));
