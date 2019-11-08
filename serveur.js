@@ -36,11 +36,30 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         let categorie = req.params.categorie;
         console.log("/produits/"+categorie);
         try{
-            db.collection("produits").find({type:categorie}).toArray((err, documents) => {
+            db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
                 res.end(JSON.stringify(documents));
             });
         } catch(e) {
             console.log("Erreur sur /produits/"+categorie+" : " + e);
+            res.end(JSON.stringify([]));
+        }
+    });
+
+    /* Liste des catégories de produits */
+    app.get("/categories", (req, res) => {
+        console.log("/categories");
+        categories = [];
+        try{
+            db.collection("produits").find().toArray((err, documents) => {
+                for (let doc of documents) {
+                    if (!categories.includes(doc.categorie)) 
+                        categories.push(doc.categorie);
+                }
+                console.log("Renvoi de "+JSON.stringify(categories));
+                res.end(JSON.stringify(categories));
+            });
+        } catch(e) {
+            console.log("Erreur sur /categories : " + e);
             res.end(JSON.stringify([]));
         }
     });
