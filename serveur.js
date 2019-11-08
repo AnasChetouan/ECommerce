@@ -123,6 +123,35 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
             }
         });
 
+        /* Filtre par catégorie et par matériau */
+        app.get("/produits/:categorie/:materiau", (req, res) => {
+            let categorie = req.params.categorie;
+            let materiau = req.params.materiau;
+            retour = [];
+            console.log("/produits/"+categorie+"/"+materiau);
+            try{
+                db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                    for (let doc of documents) {
+                        for (var i = 0; i < doc.materiaux.length; i++) { 
+                            for (var key in doc.materiaux[i]){
+                                var attrName = key;
+                                var attrValue = obj[key];
+                                if(attrValue.equals(materiau))
+                                    retour.push(doc);
+                            }
+                        }
+                           
+                    }
+
+                    console.log("Renvoi de "+JSON.stringify(retour));
+                    res.end(JSON.stringify(retour));
+                });
+            } catch(e) {
+                console.log("Erreur sur /produits/"+categorie+"/"+materiau+" : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
     /* Connexion */
     app.post("/membre/connexion", (req, res) => {
         console.log("/utilisateurs/connexion avec "+JSON.stringify(req.body));

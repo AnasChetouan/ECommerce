@@ -7,6 +7,14 @@
     "prix":"180",
     "description": "eppaisseur 3 millimetre, taille L : 17centimetres parfait pour une soirée mondaine"
    },
+   {"categorie":"bracelet",
+    "nom":"bracelet full argent",
+    "materiaux":{
+      "materiau1":"argent"
+    },
+    "prix":"90",
+    "description": "eppaisseur 5 millimetre, taille M : 21centimetres son teint vous va à ravir"
+   },
    {"categorie":"collier",
     "nom":"collier ori",
     "materiaux":{
