@@ -1,20 +1,26 @@
 [{"categorie":"bracelet",
     "nom":"bracelet ori",
-    "materiaux-principal":"or",
-    "materiaux-secondaire":"argent",
+    "materiaux":{
+      "materiau-principal":"or",
+      "materiau-secondaire":"argent"
+    },
     "prix":"180",
     "description": "eppaisseur 3 millimetre, taille L : 17centimetres parfait pour une soirée mondaine"
    },
    {"categorie":"collier",
     "nom":"bracelet ori",
-    "materiaux-principal":"argent",
+    "materiaux":{
+      "materiau-principal":"argent"
+    },
     "prix":"76",
     "description": "eppaisseur 8 millimetre, taille M : 39centimetres sa perle ne vous rendra pas indifferent"
    },
   {"categorie":"bague",
     "nom":"valentine",
-    "materiaux-principal":"diamant",
-    "materiaux-secondaire":"argent",
+    "materiaux":{
+      "materiau-principal":"argent",
+      "materiau-secondaire":"diamant"
+    },
     "prix":"654",
     "description": "taille 53 parfait pour le 14 fevrier"
    }
