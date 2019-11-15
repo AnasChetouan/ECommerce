@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
-export class ProduitService {
+export class ProduitsService {
 
     private urlBase: string = 'http://localhost:8888';
 
