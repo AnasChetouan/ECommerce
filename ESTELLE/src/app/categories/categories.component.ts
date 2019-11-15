@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthentificationService } from '../authentification.service';
 import { Router } from '@angular/router';
-import { ProduitService } from '../produits.service';
+import { ProduitsService } from '../produits.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +15,7 @@ export class CategoriesComponent implements OnInit {
   private categories: String[] = new Array;
   constructor(private router: Router,
               private authService : AuthentificationService,
-              private produitService : ProduitService) {
+              private produitService : ProduitsService) {
           this.user = this.authService.getUser();
   }
 
