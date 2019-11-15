@@ -132,15 +132,11 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
             try{
                 db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
                     for (let doc of documents) {
-                        for (var i = 0; i < doc.materiaux.length; i++) { 
-                            for (var key in doc.materiaux[i]){
-                                var attrName = key;
-                                var attrValue = obj[key];
-                                if(attrValue.equals(materiau))
-                                    retour.push(doc);
-                            }
+                        for(let x of doc.materiaux){
+                            if(x === materiau)
+                                retour.push(doc);
                         }
-                           
+                        
                     }
 
                     console.log("Renvoi de "+JSON.stringify(retour));
