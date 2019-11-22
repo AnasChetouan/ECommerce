@@ -6,14 +6,12 @@
         </div>
     </div>
 </div>
-<!--<div *ngIf="user|async">
+<div *ngIf="(user|async)">
     <p class = "card-header"> Vous êtes connecté : </p>
     <div class = "card-body">
         <div *ngFor="let categorie of categories">
-            <p class = "card-text mx auto"> <imput type="button" value="Allez vite decouvrir nos {{categorie}}"
-                (click)= "getProduitsParCategorie(categorie)"/></p>
+            <p class = "card-text mx auto"> <input type="button" value="Allez vite decouvrir nos {{categorie}}"
+                (click)= "produitsParCategorie(categorie)"/></p>
         </div>
     </div>
 </div>
-
--->
