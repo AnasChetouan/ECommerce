@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../authentification.service'
 
@@ -8,6 +8,7 @@ import { AuthentificationService } from '../authentification.service'
   templateUrl: './connexion.component.html',
   styleUrls: ['./connexion.component.css']
 })
+
 export class ConnexionComponent {
 
   private utilisateur = {"email":"", "password":""};

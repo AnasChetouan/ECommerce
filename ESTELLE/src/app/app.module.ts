@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+
 import { HttpClientModule } from '@angular/common/http';
 import { ProduitsService } from './produits.service';
 
@@ -25,7 +27,8 @@ import { HttpClient } from 'selenium-webdriver/http';
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   providers: [ProduitsService],
   bootstrap: [AppComponent]

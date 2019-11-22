@@ -6,16 +6,16 @@ import { map } from 'rxjs/operators';
 @Injectable({providedIn: 'root'})
 export class ProduitsService {
 
-    private urlBase: string = 'http://localhost:8888';
+    private urlBase: string = 'http://localhost:8888/';
 
     constructor(private http: HttpClient) {}
 
     getProduits(): Observable<any> {
-        return this.http.get(this.urlBase+'produit');
+        return this.http.get(this.urlBase+'produits');
     }
 
     getProduitsParCategorie(categorie): Observable<any>{
-        return this.http.get(this.urlBase+'produit/'+categorie);
+        return this.http.get(this.urlBase+'produits/'+categorie);
     }
 
     getCategories(): Observable<any> {

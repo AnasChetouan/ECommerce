@@ -21,9 +21,9 @@ export class ProduitsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       console.log("Dans produits.component.ts avec "+params["categories"]);
-      if (params["categorie"] !== undefined) {
-        console.log("/produits/"+params["categorie"]);
-        this.produitsServices.getProduitsParCategorie(params["categorie"]).subscribe(produits => { this.produits = produits; })
+      if (params["categories"] !== undefined) {
+        console.log("/produits/"+params["categories"]);
+        this.produitsServices.getProduitsParCategorie(params["categories"]).subscribe(produits => { this.produits = produits; })
       }
       else{
         this.produitsServices.getProduits().subscribe(produits => {

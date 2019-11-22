@@ -29,6 +29,6 @@ export class AuthentificationService {
     disconnect() { this.user.next(null); }
 
     verificationConnexion(identifiants): Observable<any> {
-        return this.http.post(this.baseURL+'membre/connexion', JSON.stringify(identifiants), httpOptions);
+        return this.http.post(this.baseURL+'membres/connexion', JSON.stringify(identifiants), httpOptions);
     }
 }

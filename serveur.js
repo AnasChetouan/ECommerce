@@ -207,8 +207,8 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         });
 
     /* Connexion */
-    app.post("/membre/connexion", (req, res) => {
-        console.log("/utilisateurs/connexion avec "+JSON.stringify(req.body));
+    app.post("/membres/connexion", (req, res) => {
+        console.log("/membres/connexion avec "+JSON.stringify(req.body));
         try{
             db.collection("membres")
             .find(req.body)
