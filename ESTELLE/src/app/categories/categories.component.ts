@@ -13,14 +13,15 @@ export class CategoriesComponent implements OnInit {
 
   private user : Observable<string>;
   private categories: String[] = new Array;
+  
   constructor(private router: Router,
               private authService : AuthentificationService,
-              private produitService : ProduitsService) {
+              private produitsService : ProduitsService) {
           this.user = this.authService.getUser();
   }
 
   ngOnInit() {
-    this.produitService.getCategories().subscribe(categories => {
+    this.produitsService.getCategories().subscribe(categories => {
       this.categories = categories;
     })
   }

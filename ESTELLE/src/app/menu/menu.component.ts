@@ -20,7 +20,7 @@ ngOnInit() {
 
 deconnexion() {
     this.authService.disconnect();
-    this.router.navigate(['/categories']);
+    this.router.navigate(['/categories']);  
 }
 
 }

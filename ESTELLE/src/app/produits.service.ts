@@ -21,7 +21,5 @@ export class ProduitsService {
     getCategories(): Observable<any> {
         return this.http.get(this.urlBase+'categories');
     }
-
-
-
+    
 }

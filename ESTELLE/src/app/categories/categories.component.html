@@ -1,17 +1,17 @@
-<!--div *ngIf="!(user|async)">
+<!--<div *ngIf="!(user|async)">
     <p class = "card-header mx-auto"> En vous connectant, découvrez nos : </p>
     <div class = "card-body">
-        <div *ngFor="let categorie of categorie" class = "card">
+        <div *ngFor="let categorie of categories" class = "card">
             <p class = "card-text mx auto">{{categorie}}</p>
         </div>
     </div>
 </div>
-<div *ngIf="(user|async)">
+<div *ngIf="user|async">
     <p class = "card-header"> Vous êtes connecté : </p>
     <div class = "card-body">
-        <div *ngFor="let categorie of categorie">
+        <div *ngFor="let categorie of categories">
             <p class = "card-text mx auto"> <imput type="button" value="Allez vite decouvrir nos {{categorie}}"
-                (click)= "produitParCategorie(categorie)"/></p>
+                (click)= "getProduitsParCategorie(categorie)"/></p>
         </div>
     </div>
-</div-->
+</div> -->
