@@ -1,4 +1,5 @@
-[{"categorie":"bracelet",
+[{ "id": "0",
+  "categorie":"bracelet",
     "nom":"bracelet ori",
     "materiaux":[
       "or",
@@ -7,7 +8,8 @@
     "prix":"180",
     "description": "eppaisseur 3 millimetre, taille L : 17centimetres parfait pour une soirée mondaine"
    },
-   {"categorie":"bracelet",
+   { "id": "1",
+    "categorie":"bracelet",
     "nom":"bracelet full argent",
     "materiaux":[
       "argent"
@@ -15,7 +17,8 @@
     "prix":"90",
     "description": "eppaisseur 5 millimetre, taille M : 21centimetres son teint vous va à ravir"
    },
-   {"categorie":"collier",
+   { "id": "2",
+     "categorie":"collier",
     "nom":"collier ori",
     "materiaux":[
       "argent"
@@ -23,7 +26,8 @@
     "prix":"76",
     "description": "eppaisseur 8 millimetre, taille M : 39centimetres sa perle ne vous rendra pas indifferent"
    },
-  {"categorie":"bague",
+  { "id": "3",
+    "categorie":"bague",
     "nom":"valentine",
     "materiaux":[
       "argent",

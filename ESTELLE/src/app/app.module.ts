@@ -4,16 +4,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ProduitsService } from './produits.service';
+import { ProduitsService } from './services/produits.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MenuComponent } from './menu/menu.component';
-import { ConnexionComponent } from './connexion/connexion.component';
-import { ProduitsComponent } from './produits/produits.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { ProduitsComponent } from './components/produits/produits.component';
 import { HttpClient } from 'selenium-webdriver/http';
+import { PanierComponent } from './components/panier/panier.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { HttpClient } from 'selenium-webdriver/http';
     CategoriesComponent,
     MenuComponent,
     ConnexionComponent,
-    ProduitsComponent
+    ProduitsComponent,
+    PanierComponent
   ],
   imports: [
     BrowserModule,
@@ -33,4 +35,6 @@ import { HttpClient } from 'selenium-webdriver/http';
   providers: [ProduitsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  
+}

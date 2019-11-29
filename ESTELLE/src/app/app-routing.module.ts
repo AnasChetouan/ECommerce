@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ConnexionComponent } from './connexion/connexion.component';
-import { CategoriesComponent } from './categories/categories.component';
-import { ProduitsComponent } from './produits/produits.component';
+import { ConnexionComponent } from './components/connexion/connexion.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { ProduitsComponent } from './components/produits/produits.component';
+import { PanierComponent} from './components/panier/panier.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'produits',
     component: ProduitsComponent
+  },
+  {
+    path: 'panier',
+    component: PanierComponent
   }
 ];
 

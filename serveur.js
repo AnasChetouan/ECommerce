@@ -222,5 +222,21 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         }
     });
 
+     /* Connexion */
+     app.post("/membres/item/add", (req, res) => {
+        console.log("/membres/item/add"+JSON.stringify(req.body));
+        try{
+            db.collection("membres")
+            .find(req.body)
+            .toArray((err, documents) => {
+                if (documents.length == 1)
+                    res.end(JSON.stringify({"resultat": 1, "message": "Authentification réussie"}));
+                else res.end(JSON.stringify({"resultat": 0, "message": "Email et/ou mot de passe incorrect"}));
+            });
+        } catch(e) {
+            res.end(JSON.stringify({"resultat": 0, "message": e}));
+        }
+    });
+
 
 });
