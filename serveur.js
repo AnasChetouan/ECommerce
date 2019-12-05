@@ -13,6 +13,7 @@ app.use(function (req, res, next) {
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectId;
 const url = "mongodb://localhost:27017";
+const router = express.Router();
 
 app.listen(8888);
 
@@ -223,8 +224,8 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
     });
 
      /* Connexion */
-     app.post("/membres/item/add", (req, res) => {
-        console.log("/membres/item/add"+JSON.stringify(req.body));
+     app.post("/membres/produit/ajouter", (req, res) => {
+        console.log("/membres/produit/ajouter"+JSON.stringify(req.body));
         try{
             db.collection("membres")
             .find(req.body)

@@ -4,6 +4,15 @@ import { Observable } from "rxjs";
 
 import { ProduitModel } from "../models/produit.model";
 
+const httpOptions = {
+  headers: new HttpHeaders({
+      "Access-Control-Allow-Methods": "GET,POST",
+      "Access-Control-Allow-Headers": "Content-type",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+  })
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,12 +27,8 @@ export class PanierService {
   //Add items to cart
   saveUserItem(userItem: object): Observable<ProduitModel> {
     this.onLoadToken();
-    console.log("objet reçu : ");
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this.token
-    });
-    return this.http.post<ProduitModel>(this.baseURL+'/membre/item/add', userItem, { headers: headers });
+    console.log("objet reçu : "+userItem);
+    return this.http.post<ProduitModel>(this.baseURL+'membres/produit/ajouter', userItem, httpOptions);
   }
 
   //Get all items to cart
