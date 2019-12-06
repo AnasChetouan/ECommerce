@@ -14,6 +14,10 @@ export class ProduitsService {
         return this.http.get(this.urlBase+'produits');
     }
 
+    getProduit(id): Observable<any> {
+        return this.http.get(this.urlBase+'produits/'+id);
+    }
+
     getProduitsParCategorie(categorie): Observable<any>{
         return this.http.get(this.urlBase+'produits/'+categorie);
     }

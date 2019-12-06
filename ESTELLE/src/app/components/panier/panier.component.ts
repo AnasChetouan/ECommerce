@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ProduitModel } from "../../models/produit.model";
 import { Router } from "@angular/router";
 import { PanierService } from "../../services/panier.service";
+import { ProduitsService } from "../../services/produits.service";
+import { AuthentificationService } from 'src/app/services/authentification.service';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-panier',
@@ -10,22 +13,49 @@ import { PanierService } from "../../services/panier.service";
 })
 export class PanierComponent implements OnInit {
   id: string;
-  userItem: ProduitModel[];
+  private panier: Subject<String> = new BehaviorSubject<string>(undefined);
+  //private panier: String = "";
+  private produits: Object[] = new Array;
+  private user:Subject<string> = new BehaviorSubject<string>(undefined);
+
   constructor(
-    private userItemService: PanierService,
+    private panierService: PanierService,
     private router: Router,
+    private authService: AuthentificationService,
+    private produitService: ProduitsService
    // private flashMessage: NgFlashMessageService
-  ) { }
+   ) {
+    this.user = this.authService.getUser();
+   }
 
   ngOnInit() {
-    this.id = this.router.url.split('/')[3];
-    this.fetchUserItems();
+    let e;
+    this.user.subscribe(email=>{e = email;});
+    console.log("email envoyé : "+e);
+
+
+    this.panierService.getPanier(e).subscribe(value => {
+      this.panier.next(JSON.stringify(value));
+      //console.log("panier dans sub:"+JSON.stringify(this.panier));
+      //console.log("value dans sub:"+JSON.stringify(value));
+      this.decomposerPanier()
+    })
   }
 
-  fetchUserItems() {
-    this.userItemService.getUserItem(this.id).subscribe(data => {
-      this.userItem = data;
-    });
+  decomposerPanier(){
+    console.log("panier : "+ JSON.stringify(this.panier));
+    console.log("on test : "+this.panier["_value"]["contenu"]);
+    console.log("on test : "+this.panier["_value"]);
+    
+    let value = this.panier["_value"];
+    let contenu = value["contenue"];
+    console.log("on value : "+value);
+    console.log("on contenu : "+contenu);
+
+    for(let p of this.panier["_value"["contenu"]]){
+      console.log("id:"+p["id"]);
+      this.produits.push(this.produitService.getProduit(p["id"]));
+    }
   }
 
 

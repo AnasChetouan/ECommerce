@@ -20,7 +20,7 @@ export class ProduitsComponent implements OnInit {
   name: string;
   price: string;
 
-  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsServices: ProduitsService, private router: Router, private PanierService: PanierService) { 
+  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsService: ProduitsService, private router: Router, private PanierService: PanierService) { 
     this.user = this.authService.getUser();
   }
 
@@ -29,38 +29,14 @@ export class ProduitsComponent implements OnInit {
       console.log("Dans produits.component.ts avec "+params["categorie"]);
       if (params["categorie"] !== undefined) {
         console.log("/produits/"+params["categorie"]);
-        this.produitsServices.getProduitsParCategorie(params["categorie"]).subscribe(produits => { this.produits = produits; })
+        this.produitsService.getProduitsParCategorie(params["categorie"]).subscribe(produits => { this.produits = produits; })
       }
       else{
-        this.produitsServices.getProduits().subscribe(produits => {
+        this.produitsService.getProduits().subscribe(produits => {
           this.produits = produits;
         });
       }
     });
-  }
-
-  onAddToCart(name: string, price: string) {
-    this.name = name;
-    this.price = price;
-    let userItem = {
-      name: this.name,
-      price: this.price,
-    };
-
-    this.PanierService.saveUserItem(userItem).subscribe(data => {
-      console.log("entrée saveUserItem");
-      if (data) {
-        /*this.flashMessage.showFlashMessage({
-          messages: ['Item added to your cart!'],
-          dismissible: true,
-          timeout: 4000,
-          type: 'success'*/
-          console.log("l'objet a été ajouté au panier : "+userItem);
-        this.router.navigate(['panier']);
-        return true;
-      }
-    });
-
   }
 
 }

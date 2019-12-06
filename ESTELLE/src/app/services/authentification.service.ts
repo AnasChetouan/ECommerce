@@ -19,7 +19,7 @@ const httpOptions = {
 export class AuthentificationService {
     private user:Subject<string> = new BehaviorSubject<string>(undefined);
     private baseURL: string = "http://localhost:8888/";
-    token: string;
+    //token: string;
 
     constructor(private http: HttpClient) { }
 
@@ -33,7 +33,7 @@ export class AuthentificationService {
         return this.http.post(this.baseURL+'membres/connexion', JSON.stringify(identifiants), httpOptions);
     }
 
-      /*
+    /*
     onLoadToken() {
     this.token = localStorage.getItem('access_token');
     

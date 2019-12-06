@@ -124,6 +124,48 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
             }
         });
 
+        /* Liste des produits dans le panier, pour le user identifié par 'email' */
+        app.get("/panier/:email", (req, res) => {
+            console.log("/panier");
+            let email = req.params.email;
+            produits = [];
+            console.log("email reçue:"+email);
+            try{
+                db.collection("paniers").find({proprio:email}).toArray((err, documents) => {
+                    for (let doc of documents) {
+                        if (doc != undefined && !produits.includes(doc)) 
+                            produits.push(doc);
+                    }
+                    console.log("Renvoi de "+JSON.stringify(produits));
+                    res.end(JSON.stringify(produits));
+                });
+            } catch(e) {
+                console.log("Erreur sur /panier : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
+
+        /* Récupérer le produit par son id */
+        app.get("/produits/:id", (req, res) => {
+            let id = req.params.id;
+            console.log("/produits/"+id);
+            produits = [];
+            try{
+                db.collection("produits").find({id:id}).toArray((err, documents) => {
+                    for (let doc of documents) {
+                        if (doc != undefined && !produits.includes(doc)) 
+                            produits.push(doc);
+                    }
+                    console.log("Renvoi de "+JSON.stringify(produits));
+                    res.end(JSON.stringify(produits));
+                });
+            } catch(e) {
+                console.log("/produits/"+ id + " : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
         /* Filtre par catégorie et par matériau */
         app.get("/produits/:categorie/:materiau", (req, res) => {
             let categorie = req.params.categorie;
