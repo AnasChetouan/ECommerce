@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class PanierComponent implements OnInit {
   id: string;
-  private panier: Subject<String> = new BehaviorSubject<string>(undefined);
+  private panier: Object[] = new Array();
   //private panier: String = "";
   private produits: Object[] = new Array;
   private user:Subject<string> = new BehaviorSubject<string>(undefined);
@@ -33,48 +33,24 @@ export class PanierComponent implements OnInit {
     this.user.subscribe(email=>{e = email;});
     console.log("email envoyé : "+e);
 
-
     this.panierService.getPanier(e).subscribe(value => {
-      this.panier.next(JSON.stringify(value));
-      //console.log("panier dans sub:"+JSON.stringify(this.panier));
-      //console.log("value dans sub:"+JSON.stringify(value));
+      this.panier = value;
       this.decomposerPanier()
     })
   }
 
   decomposerPanier(){
-    console.log("panier : "+ JSON.stringify(this.panier));
-    console.log("on test : "+this.panier["_value"]["contenu"]);
-    console.log("on test : "+this.panier["_value"]);
-    
-    let value = this.panier["_value"];
-    let contenu = value["contenue"];
+    var value = this.panier[0];
     console.log("on value : "+value);
+    var contenu = JSON.stringify(value["contenu"]);
     console.log("on contenu : "+contenu);
 
-    for(let p of this.panier["_value"["contenu"]]){
-      console.log("id:"+p["id"]);
-      this.produits.push(this.produitService.getProduit(p["id"]));
+    for(let p of contenu){
+      console.log("p :"+p);
+      var id = JSON.stringify(p["id"]);
+      console.log("id:"+id);
+      this.produits.push(this.produitService.getProduit(id));
     }
   }
-
-
-  /*onDeleteItem(id: string) {
-    if (confirm(`Do you want to delete this item...?`)) {
-      this.userItemService.deleteItem(id).subscribe(data => {
-        if (data.success) {
-          this.flashMessage.showFlashMessage({
-            messages: ["Item deleted from your cart, Let's add one!"],
-            dismissible: true,
-            timeout: 4000,
-            type: 'success'
-          });
-        }
-        this.router.navigate(['items']);
-      });
-    } else {
-      this.router.navigate(['user/item', this.id]);
-    }
-  }*/
 
 }

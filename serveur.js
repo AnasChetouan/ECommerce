@@ -228,26 +228,240 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         app.get("/produits/:categorie/:materiau/:prix1/:prix2", (req, res) => {
             let categorie = req.params.categorie;
             let materiau = req.params.materiau;
+            let prix1 = req.params.prix1;
+            let prix2 = req.params.prix2;
             retour = [];
-            console.log("/produits/"+categorie+"/"+materiau);
+            console.log(prix1);
+            //console.log(prix2);
+            //console.log(materiau);
+            //console.log(prix1);
+            //console.log("/produits/"+categorie+"/"+materiau);
             try{
-                db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
-                    for (let doc of documents) {
-                        for(let x of doc.materiaux){
-                            if(x === materiau)
-                                retour.push(doc);
+                if (categorie === '*'){
+                    if(prix1 === '' || prix2 === ''){
+                        if(prix1 === '' && prix2 != ''){
+                            db.collection("produits").find().toArray((err, documents) => {
+                                if (materiau === '*'){
+                                    for (let doc of documents) {
+                                        if (!retour.includes(doc.materiaux)){ 
+                                            if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= 0){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                                else {
+                                    for (let doc of documents) {
+                                        for(let x of doc.materiaux){
+                                            if(x === materiau){
+                                                if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= 0){
+                                                    retour.push(doc);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                console.log("Renvoi de "+JSON.stringify(retour));
+                                res.end(JSON.stringify(retour));
+                            });
                         }
-                        
+                        if(prix1 != '' && prix2 === ''){
+                            db.collection("produits").find().toArray((err, documents) => {
+                                if (materiau === '*'){
+                                    for (let doc of documents) {
+                                        if (!retour.includes(doc.materiaux)){
+                                            if(parseInt(doc.prix) >= parseInt(prix1)){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                                else {
+                                    for (let doc of documents) {
+                                        for(let x of doc.materiaux){
+                                            if(x === materiau){
+                                                if(parseInt(doc.prix) >= parseInt(prix1)){
+                                                    retour.push(doc);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+            
+                                console.log("Renvoi de "+JSON.stringify(retour));
+                                res.end(JSON.stringify(retour));
+                            });
+                        }
+                        if(prix1 === '' && prix2 === ''){
+                            db.collection("produits").find().toArray((err, documents) => {
+                                if (materiau === '*'){
+                                    for (let doc of documents) {
+                                        if (!retour.includes(doc.materiaux)){
+                                            if(parseInt(doc.prix) >= 0){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                                else {
+                                    for (let doc of documents) {
+                                        for(let x of doc.materiaux){
+                                            if(x === materiau){
+                                                if(parseInt(doc.prix) >= 0){
+                                                    retour.push(doc);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+            
+                                console.log("Renvoi de "+JSON.stringify(retour));
+                                res.end(JSON.stringify(retour));
+                            });
+                        }
                     }
-
+                    else {
+                    db.collection("produits").find().toArray((err, documents) => {
+                        if (materiau === '*'){
+                            for (let doc of documents) {
+                                if (!retour.includes(doc.materiaux)){
+                                    if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= parseInt(prix1)){
+                                    retour.push(doc);
+                                    }
+                                }
+                            }
+                        }
+                        else{
+                            for (let doc of documents) {
+                                for(let x of doc.materiaux){
+                                    if(x === materiau){
+                                        if(ParseInt(doc.prix) <= ParseInt(prix2) && ParseInt(doc.prix) >= ParseInt(prix1)){
+                                            retour.push(doc);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        console.log("Renvoi de "+JSON.stringify(retour));
+                        res.end(JSON.stringify(retour));
+                    });
+                    }
+                }
+                else {
+                if(prix1 === '' || prix2 === ''){
+                    if(prix1 === '' && prix2 != ''){
+                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                            if (materiau === '*'){
+                                for (let doc of documents) {
+                                    if (!retour.includes(doc.materiaux)){ 
+                                        if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= 0){
+                                            retour.push(doc);
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                for (let doc of documents) {
+                                    for(let x of doc.materiaux){
+                                        if(x === materiau){
+                                            if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= 0){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            console.log("Renvoi de "+JSON.stringify(retour));
+                            res.end(JSON.stringify(retour));
+                        });
+                    }
+                    if(prix1 != '' && prix2 === ''){
+                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                            if (materiau === '*'){
+                                for (let doc of documents) {
+                                    if (!retour.includes(doc.materiaux)){
+                                        if(parseInt(doc.prix) >= parseInt(prix1)){
+                                            retour.push(doc);
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                for (let doc of documents) {
+                                    for(let x of doc.materiaux){
+                                        if(x === materiau){
+                                            if(parseInt(doc.prix) >= parseInt(prix1)){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+        
+                            console.log("Renvoi de "+JSON.stringify(retour));
+                            res.end(JSON.stringify(retour));
+                        });
+                    }
+                    if(prix1 === '' && prix2 === ''){
+                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                            if (materiau === '*'){
+                                for (let doc of documents) {
+                                    if (!retour.includes(doc.materiaux)){
+                                        if(parseInt(doc.prix) >= 0){
+                                            retour.push(doc);
+                                        }
+                                    }
+                                }
+                            }
+                            else {
+                                for (let doc of documents) {
+                                    for(let x of doc.materiaux){
+                                        if(x === materiau){
+                                            if(parseInt(doc.prix) >= 0){
+                                                retour.push(doc);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+        
+                            console.log("Renvoi de "+JSON.stringify(retour));
+                            res.end(JSON.stringify(retour));
+                        });
+                    }
+                }
+                else {
+                db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                    if (materiau === '*'){
+                        for (let doc of documents) {
+                            if (!retour.includes(doc.materiaux)){
+                                if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= parseInt(prix1)){
+                                retour.push(doc);
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        for (let doc of documents) {
+                            for(let x of doc.materiaux){
+                                if(x === materiau){
+                                    if(ParseInt(doc.prix) <= ParseInt(prix2) && ParseInt(doc.prix) >= ParseInt(prix1)){
+                                        retour.push(doc);
+                                    }
+                                }
+                            }
+                        }
+                    }
                     console.log("Renvoi de "+JSON.stringify(retour));
                     res.end(JSON.stringify(retour));
                 });
+                }
+            }
             } catch(e) {
                 console.log("Erreur sur /produits/"+categorie+"/"+materiau+" : " + e);
                 res.end(JSON.stringify([]));
             }
-        });
+        })
 
     /* Connexion */
     app.post("/membres/connexion", (req, res) => {
