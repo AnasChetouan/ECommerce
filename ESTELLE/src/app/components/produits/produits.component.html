@@ -3,7 +3,7 @@
         <div *ngFor="let produit of produits" class="card">
             <div class="card-text mx-auto"> {{produit['nom']}} ({{produit['categorie']}})
                 Prix : {{produit['prix']}} €
-            <div *ngIf="(user|async)">  <a (click)="onAddToCart(produit['nom'], produit['prix'])" class="btn btn-success text-light btn-add-cart">Achete!</a>
+            <div *ngIf="(user|async)">  <a (click)="onAddToCart(produit)" class="btn btn-success text-light btn-add-cart">Achete!</a>
         </div>
     </div>
 </div>

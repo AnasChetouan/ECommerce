@@ -125,7 +125,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         });
 
         /* Liste des produits dans le panier, pour le user identifié par 'email' */
-        app.get("/panier/:email", (req, res) => {
+        app.get("/panier/get/:email", (req, res) => {
             console.log("/panier");
             let email = req.params.email;
             produits = [];
@@ -144,6 +144,24 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
                 res.end(JSON.stringify([]));
             }
         });
+
+     /* Ajout produit dans panier */
+     app.post("/panier/ajouter", (req, res) => {
+        console.log("/panier/ajouter"+JSON.stringify(req.body));
+        let produit = {test: 1};
+        try{
+            db.collection("panier").insertOne(
+                {"proprio":"user@mail.com",
+            "contenu":[
+                produit
+            ]  
+            });
+            console.log("Insertion faite");
+            
+        } catch(e) {
+            res.end(JSON.stringify({"resultat": 0, "message": e}));
+        }
+    });
 
 
         /* Récupérer le produit par son id */
@@ -461,22 +479,6 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
     /* Connexion */
     app.post("/membres/connexion", (req, res) => {
         console.log("/membres/connexion avec "+JSON.stringify(req.body));
-        try{
-            db.collection("membres")
-            .find(req.body)
-            .toArray((err, documents) => {
-                if (documents.length == 1)
-                    res.end(JSON.stringify({"resultat": 1, "message": "Authentification réussie"}));
-                else res.end(JSON.stringify({"resultat": 0, "message": "Email et/ou mot de passe incorrect"}));
-            });
-        } catch(e) {
-            res.end(JSON.stringify({"resultat": 0, "message": e}));
-        }
-    });
-
-     /* Connexion */
-     app.post("/membres/produit/ajouter", (req, res) => {
-        console.log("/membres/produit/ajouter"+JSON.stringify(req.body));
         try{
             db.collection("membres")
             .find(req.body)
