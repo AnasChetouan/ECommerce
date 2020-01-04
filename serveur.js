@@ -33,7 +33,7 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         }
     });
 
-    app.get("/produits/:categorie", (req, res) => {
+    app.get("/produits/categories/:categorie", (req, res) => {
         let categorie = req.params.categorie;
         console.log("/produits/"+categorie);
         try{
@@ -147,21 +147,16 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
 
 
         /* Récupérer le produit par son id */
-        app.get("/produits/:id", (req, res) => {
-            let id = req.params.id;
-            console.log("/produits/"+id);
-            produits = [];
+        app.get("/produits/:ref", (req, res) => {
+            let ref = req.params.ref;
+            console.log("/produits/"+ref);
             try{
-                db.collection("produits").find({id:id}).toArray((err, documents) => {
-                    for (let doc of documents) {
-                        if (doc != undefined && !produits.includes(doc)) 
-                            produits.push(doc);
-                    }
-                    console.log("Renvoi de "+JSON.stringify(produits));
-                    res.end(JSON.stringify(produits));
+                db.collection("produits").find({"ref":ref}).toArray((err, documents) => {
+                    res.end(JSON.stringify(documents));
+                    console.log("Renvoi de "+JSON.stringify(documents));
                 });
             } catch(e) {
-                console.log("/produits/"+ id + " : " + e);
+                console.log("/produits/"+ ref + " : " + e);
                 res.end(JSON.stringify([]));
             }
         });

@@ -1,4 +1,4 @@
 [
     {"nom":"U", "prénom":"Ser", "email":"user@mail.com", "password":"123"},
-    {"nom":"U", "prénom":"Ser2", "email":"user2@okay.com", "password":"123"}
+    {"nom":"U", "prénom":"Ser2", "email":"user2@mail.com", "password":"123"}
 ]
