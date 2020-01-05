@@ -17,6 +17,7 @@ export class ProduitsComponent implements OnInit {
 
   private user: Observable<string>;
   private produits: Object[] = new Array();
+  private categories: String[] = new Array;
   name: string;
   price: string;
 
@@ -25,6 +26,9 @@ export class ProduitsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.produitsService.getCategories().subscribe(categories => {
+      this.categories = categories;
+    });
     this.route.params.subscribe((params: Params) => {
       console.log("Dans produits.component.ts avec "+params["categorie"]);
       if (params["categorie"] !== undefined) {

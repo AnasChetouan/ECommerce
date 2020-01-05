@@ -485,8 +485,10 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             db.collection("membres")
             .find(req.body)
             .toArray((err, documents) => {
-                if (documents.length == 1)
+                if (documents.length == 1){
+                	//window.localStorage.setItem('auth', "authentifie");
                     res.end(JSON.stringify({"resultat": 1, "message": "Authentification réussie"}));
+                }
                 else res.end(JSON.stringify({"resultat": 0, "message": "Email et/ou mot de passe incorrect"}));
             });
         } catch(e) {
@@ -590,7 +592,10 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                 else {
                     console.log("email deja present");
                 }
-        });
+        	});
         
-    });
+    	});
+
+
+
 });
