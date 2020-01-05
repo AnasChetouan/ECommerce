@@ -29,12 +29,26 @@ export class ProduitsComponent implements OnInit {
       console.log("Dans produits.component.ts avec "+params["categorie"]);
       if (params["categorie"] !== undefined) {
         console.log("/produits/"+params["categorie"]);
-        this.produitsService.getProduitsParCategorie(params["categorie"]).subscribe(produits => { this.produits = produits; })
+        this.produitsService.getProduitsParCategorie(params["categorie"]).subscribe(produits => { this.produits = produits;
+          //console.log("Produits : "+JSON.stringify(this.produits)); 
+        })
       }
       else{
         this.produitsService.getProduits().subscribe(produits => {
           this.produits = produits;
         });
+      }
+    });
+  }
+  
+  onAddToCart(produit){
+    console.log("addtocart");
+    var e;
+    this.user.subscribe(email=>{e = email;})
+
+    this.PanierService.saveItemPanier({"email":e, "produit":produit}).subscribe(reponse => {
+      if (reponse['resultat']){
+        this.router.navigate(['/categories']);
       }
     });
   }

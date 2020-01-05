@@ -15,7 +15,8 @@ export class PanierComponent implements OnInit {
   id: string;
   private panier: Object[] = new Array();
   //private panier: String = "";
-  private produits: Object[] = new Array;
+  private produits: Object[] = new Array();
+  private contenu: Object[] = new Array();
   private user:Subject<string> = new BehaviorSubject<string>(undefined);
 
   constructor(
@@ -29,7 +30,7 @@ export class PanierComponent implements OnInit {
    }
 
   ngOnInit() {
-    let e;
+    var e;
     this.user.subscribe(email=>{e = email;});
     console.log("email envoyé : "+e);
 
@@ -40,16 +41,23 @@ export class PanierComponent implements OnInit {
   }
 
   decomposerPanier(){
-    var value = this.panier[0];
-    console.log("on value : "+value);
-    var contenu = JSON.stringify(value["contenu"]);
-    console.log("on contenu : "+contenu);
+    if (this.panier[0] != null){
+      var value = this.panier[0];
+      this.contenu = value["contenu"];
+      //console.log("on contenu : "+JSON.stringify(this.contenu));
 
-    for(let p of contenu){
-      console.log("p :"+p);
-      var id = JSON.stringify(p["id"]);
-      console.log("id:"+id);
-      this.produits.push(this.produitService.getProduit(id));
+      for(let p of this.contenu){
+       // console.log("p :"+JSON.stringify(p));
+        var ref = p["ref"];
+       // console.log("ref:"+ref);
+        var produit;
+        this.produitService.getProduitParRef(ref).subscribe(x => { produit = x[0]; 
+          //console.log("Produit affiché : "+JSON.stringify(produit));
+          this.produits.push(produit);
+          //console.log("Produits : "+JSON.stringify(this.produits));
+        })
+
+      }
     }
   }
 
