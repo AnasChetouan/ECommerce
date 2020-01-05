@@ -504,6 +504,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             produits = [];
             MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
             }
+        )});
         });
 
      /* Ajout produit dans panier */
@@ -528,7 +529,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         /* Récupérer le produit par son id */
         app.get("/produits/:ref", (req, res) => {
             MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
-        }
+        });
     });
 
 
