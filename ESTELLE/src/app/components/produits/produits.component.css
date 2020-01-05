@@ -1,5 +1,10 @@
 .products-wrap {
 	float : left;
+        margin-left: 10%;
         width: 60%;
         background-color: #bf94e4;
+}
+
+.card-body {
+ margin-left: 10%;
 }

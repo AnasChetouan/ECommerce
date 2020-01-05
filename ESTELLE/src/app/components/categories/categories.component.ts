@@ -26,6 +26,11 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
+  produitsParMateriaux(materiaux){
+    this.router.navigate(['/produits', materiaux]);
+  }
+
+
   produitsParCategorie(categorie){
     this.router.navigate(['/produits', categorie]);
   }

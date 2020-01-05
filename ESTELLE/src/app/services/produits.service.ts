@@ -18,6 +18,10 @@ export class ProduitsService {
         return this.http.get(this.urlBase+'categories');
     }
 
+    getMateriaux(): Observable<any> {
+        return this.http.get(this.urlBase+'materiaux');
+    }
+
     getProduitParRef(ref): Observable<any> {
         return this.http.get(this.urlBase+'produits/'+ref);
     }
@@ -26,6 +30,9 @@ export class ProduitsService {
         return this.http.get(this.urlBase+'produits/categories/'+categorie);
     }
 
+    getProduitParRecherche(categorie,materiau,prix1,prix2): Observable<any> {
+        return this.http.get(this.urlBase+'/produits/'+categorie+'/'+materiau+'/'+prix1+'/'+prix2);
+    }
 
     
 }

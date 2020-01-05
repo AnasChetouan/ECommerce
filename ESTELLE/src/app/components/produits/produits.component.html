@@ -6,11 +6,28 @@
 						<h3>Recherche:</h3>
 						<fieldset>
 							<h6>Type de Bijoux:</h6>
-							<div *ngFor="let categorie of categories" class = "card">
-								<input checked type="checkbox">
+							<div *ngFor="let categorie of categories">
+								<input type="radio" name ="categorie" value={{categorie}}>
 								<label>{{categorie}}</label>
         					</div>
 						</fieldset>
+						<fieldset>
+							<h6>Materiau:</h6>
+							
+								<input type="radio" name ="materiau" value="or"><label>or</label>
+								<input type="radio" name ="materiau" value="argent"><label>argent</label>
+								<input type="radio" name ="materiau" value="diamant"><label>diamant</label>
+								
+						</fieldset>
+
+						<fieldset>
+							<h6>Prix Maximum:</h6>
+									<input type="number" min="0" step="10" name ="PrixMax">
+								
+						</fieldset>
+
+						<input type="submit" value="Rechercher">
+
 					</div>
 				</aside>
 	</div>

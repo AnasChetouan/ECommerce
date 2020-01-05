@@ -18,6 +18,7 @@ export class ProduitsComponent implements OnInit {
   private user: Observable<string>;
   private produits: Object[] = new Array();
   private categories: String[] = new Array;
+  private materiaux: String[] = new Array;
   name: string;
   price: string;
 
@@ -42,6 +43,23 @@ export class ProduitsComponent implements OnInit {
           this.produits = produits;
         });
       }
+    });
+  }
+
+  onSubmit() {
+  this.route.params.subscribe((params: Params) => {
+    let categorie = params["categorie"];
+    let materiau = params["materiau"];
+    let prixMax = params["prixMax"];
+
+    console.log(categorie);
+    console.log(materiau);
+    console.log(prixMax);
+
+    this.produitsService.getProduitParRecherche(categorie,materiau,0,prixMax).subscribe(produits => {
+        this.produits = produits;
+        this.router.navigate(['/produits']);
+      });
     });
   }
   
