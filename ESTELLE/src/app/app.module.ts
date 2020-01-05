@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ProduitsService } from './services/produits.service';
+import { newUserService } from './services/newUser.service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,7 @@ import { ConnexionComponent } from './components/connexion/connexion.component';
 import { ProduitsComponent } from './components/produits/produits.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { PanierComponent } from './components/panier/panier.component';
+import { NewUserComponent } from './components/new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { PanierComponent } from './components/panier/panier.component';
     MenuComponent,
     ConnexionComponent,
     ProduitsComponent,
-    PanierComponent
+    PanierComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,

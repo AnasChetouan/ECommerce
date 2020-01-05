@@ -20,10 +20,15 @@ export class ConnexionComponent {
     this.authService.verificationConnexion(this.utilisateur).subscribe(reponse => {
       this.message = reponse['message'];
       if (reponse['resultat']){
-        this.authService.connect(this.utilisateur.email);
-        this.router.navigate(['/categories']);
+        if(reponse['resultat'] == 1){
+          this.authService.connect(this.utilisateur.email);
+          this.router.navigate(['/categories']);
+        }
+        else {
+
+        }
       }
-      setTimeout( () => { this.router.navigate(['/categories']); }, 1000);
+      //setTimeout( () => { this.router.navigate(['/categories']); }, 1000);
     });
   }
 }

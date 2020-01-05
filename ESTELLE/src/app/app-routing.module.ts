@@ -4,12 +4,16 @@ import { ConnexionComponent } from './components/connexion/connexion.component';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ProduitsComponent } from './components/produits/produits.component';
 import { PanierComponent} from './components/panier/panier.component';
-
+import { NewUserComponent} from './components/new-user/new-user.component';
 
 const routes: Routes = [
   {
     path: 'membres/connexion',
     component: ConnexionComponent
+  },
+    {
+    path: 'membres/newUser',
+    component: NewUserComponent
   },
   {
     path: 'categories',

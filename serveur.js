@@ -17,7 +17,9 @@ const router = express.Router();
 
 app.listen(8888);
 
-MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
+
+
+MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err, client) => {
     let db = client.db("ESTELLE");
 
     /* Liste des produits */
@@ -495,5 +497,64 @@ MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
         }
     });
 
+    app.post("/membres/add", (req, res) => {
+        //console.log("/membres/add avec "+JSON.stringify(req.body));
+        let mdp1 = req.body.password1;
+        //console.log("mdp1 : "+mdp1);
+        let mdp2 = req.body.password2;
+        let prenom = req.body.prenom;
+        let trouve = false;
+        db.collection("membres").find().toArray((err, documents) => {  
+                //let trouve = false;
+                for (let doc of documents) {
+                        //console.log(doc);
+                        //console.log(req.body.email);
+                        if(doc.email == req.body.email){ //verif email deja present en base ?
+                            trouve = true;
+                            
+                            res.end(JSON.stringify({"resultat": 0, "message": "Un utilisateur est deja associé a cet email"}));
+                        }
+                        else {}
+                }
+                if(trouve == false){ //si aucun utilisateur deja associé a l'email
+                    if(mdp1 == mdp2){
 
+                        //console.log(trouve);
+                        if(trouve == false){
+                                let user = '{"nom":"'+req.body.nom+'",'+
+                                '"prenom":"'+req.body.prenom+'",'+
+                                '"email":"'+req.body.email+'",'+
+                                '"password":"'+req.body.password1+
+                                '"}';
+                                //console.log("user avant JSON avec "+user);
+                                let userJson = JSON.parse(user);
+                                console.log("/membres/add avec "+JSON.stringify(userJson));
+                                try{
+                                    let result = db.collection("membres").insertOne(userJson, function(err, res2){
+                                    if(err) {}
+                                    else {
+                                        res.end(JSON.stringify({"resultat": 1, "message": "Membre Ajouté"}));
+                                        //console.log("reussi");
+                                    }
+                                    });
+                                }
+                                catch(e) {
+                                    res.end(JSON.stringify({"resultat": 0, "message": e}));
+                                    console.log(e);
+                                }
+                        }
+                        else {
+                            
+                        }
+                    }
+                    else {
+                        res.end(JSON.stringify({"resultat": 0, "message": "Les mots de passe ne concordent pas"}));
+                    }
+                }
+                else {
+                    console.log("email deja present");
+                }
+        });
+        
+    });
 });
