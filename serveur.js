@@ -76,7 +76,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             try{
                 db.collection("produits").find().toArray((err, documents) => {
                     for (let doc of documents) {
-                    	console.log(doc.materiaux);
+                    	//console.log(doc.materiaux);
                     	for(let m of doc.materiaux){
                     		if (!materiaux.includes(m)) 
                         		materiaux.push(m);

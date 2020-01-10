@@ -1,4 +1,3 @@
-<div class="row justifiy-conten-center">
 
 	<div class="products-wrap">
 		<form (ngSubmit)="onSubmit()" #rechercheForm="ngForm">
@@ -6,48 +5,45 @@
 					<div class="widget">
 						<h3>Recherche:</h3>
 						<fieldset>
-							<h6>Type de Bijoux:</h6>
+							<h6 class="imputSearch">Type de Bijoux:</h6>
 							<div *ngFor="let categorie of categories">
-								<input type="radio" name ="categorie" value={{categorie}} required [(ngModel)]="Precherche['categorie']">
+								<input type="radio" name ="categorie" value={{categorie}} required cheked [(ngModel)]="Precherche['categorie']">
 								<label>{{categorie}}</label>
         					</div>
 						</fieldset>
+					</div>
+					<div class="widget">
 						<fieldset>
-							<!--
-							<h6>Materiau:</h6>
-							
-								<input type="radio" name ="materiau" value="or" required [(ngModel)]="Precherche['materiau']"><label>or</label>
-								<input type="radio" name ="materiau" value="argent" required [(ngModel)]="Precherche['materiau']"><label>argent</label>
-								<input type="radio" name ="materiau" value="diamant" required [(ngModel)]="Precherche['materiau']"><label>diamant</label>
-								-->
-						<h6>Materiau:</h6>
+						<h6 class="imputSearch">Materiau:</h6>
 							<div *ngFor="let materiau of materiaux">
 								<input type="radio" name ="materiau" value={{materiau}} required [(ngModel)]="Precherche['materiau']">
 								<label>{{materiau}}</label>
         					</div>
 
 						</fieldset>
-
+					</div>
+					<div class="widget">
 						<fieldset>
-							<h6>Prix Maximum:</h6>
-									<input type="number" min="0" step="10" name ="prix2" [(ngModel)]="Precherche['prix2']">
-								
+							<h6 class="imputSearch">Prix Maximum:</h6>
+									<input type="number" min="0" step="10" name ="prix2" [(ngModel)]="Precherche['prix2']">								
 						</fieldset>
-
-						<input type="submit" value="Rechercher">
-
+						<input type="submit" value="Rechercher" style = "margin : 10%">
 					</div>
 				</aside>
 		</form>
 	</div>
 
-    <div class="card-body">
-        <div *ngFor="let produit of produits" class="card">
-            <div class="card-text mx-auto"> {{produit['nom']}} ({{produit['categorie']}})
-                Prix : {{produit['prix']}} €
-            	<div *ngIf="(user|async)">  <a (click)="onAddToCart(produit)" class="btn btn-success text-light btn-add-cart">Achete!</a>
-        		</div>
-    		</div>
-		</div>
+
+	<div id="content">
+					<section class="products">
+        					<div *ngFor="let produit of produits">
+        						<article>
+            						<div class="card-text mx-auto"> <h3>{{produit['nom']}}</h3><!--({{produit['categorie']}})-->
+                					<h4>Prix : {{produit['prix']}} €</h4>
+            							<div *ngIf="(user|async)">  <a (click)="onAddToCart(produit)" class="btn-add">Ajouter au panier</a>
+        								</div>
+    								</div>
+    							</article>
+							</div>
+					</section>
 	</div>
-</div>
