@@ -1,28 +1,36 @@
 <div class="row justifiy-conten-center">
 
 	<div class="products-wrap">
+		<form (ngSubmit)="onSubmit()" #rechercheForm="ngForm">
 				<aside id="sidebar">
 					<div class="widget">
 						<h3>Recherche:</h3>
 						<fieldset>
 							<h6>Type de Bijoux:</h6>
 							<div *ngFor="let categorie of categories">
-								<input type="radio" name ="categorie" value={{categorie}}>
+								<input type="radio" name ="categorie" value={{categorie}} required [(ngModel)]="Precherche['categorie']">
 								<label>{{categorie}}</label>
         					</div>
 						</fieldset>
 						<fieldset>
+							<!--
 							<h6>Materiau:</h6>
 							
-								<input type="radio" name ="materiau" value="or"><label>or</label>
-								<input type="radio" name ="materiau" value="argent"><label>argent</label>
-								<input type="radio" name ="materiau" value="diamant"><label>diamant</label>
-								
+								<input type="radio" name ="materiau" value="or" required [(ngModel)]="Precherche['materiau']"><label>or</label>
+								<input type="radio" name ="materiau" value="argent" required [(ngModel)]="Precherche['materiau']"><label>argent</label>
+								<input type="radio" name ="materiau" value="diamant" required [(ngModel)]="Precherche['materiau']"><label>diamant</label>
+								-->
+						<h6>Materiau:</h6>
+							<div *ngFor="let materiau of materiaux">
+								<input type="radio" name ="materiau" value={{materiau}} required [(ngModel)]="Precherche['materiau']">
+								<label>{{materiau}}</label>
+        					</div>
+
 						</fieldset>
 
 						<fieldset>
 							<h6>Prix Maximum:</h6>
-									<input type="number" min="0" step="10" name ="PrixMax">
+									<input type="number" min="0" step="10" name ="prix2" [(ngModel)]="Precherche['prix2']">
 								
 						</fieldset>
 
@@ -30,6 +38,7 @@
 
 					</div>
 				</aside>
+		</form>
 	</div>
 
     <div class="card-body">

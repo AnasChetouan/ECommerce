@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const httpOptions = {
     headers: new HttpHeaders({

@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class ProduitsComponent implements OnInit {
 
+  private Precherche = {"categorie":"","materiau":"or","prix1":"0","prix2":"10000"};
   private user: Observable<string>;
   private produits: Object[] = new Array();
   private categories: String[] = new Array;
@@ -29,6 +30,9 @@ export class ProduitsComponent implements OnInit {
   ngOnInit() {
     this.produitsService.getCategories().subscribe(categories => {
       this.categories = categories;
+    });
+    this.produitsService.getMateriaux().subscribe(materiaux => {
+      this.materiaux = materiaux;
     });
     this.route.params.subscribe((params: Params) => {
       console.log("Dans produits.component.ts avec "+params["categorie"]);
@@ -47,21 +51,25 @@ export class ProduitsComponent implements OnInit {
   }
 
   onSubmit() {
-  this.route.params.subscribe((params: Params) => {
-    let categorie = params["categorie"];
-    let materiau = params["materiau"];
-    let prixMax = params["prixMax"];
-
-    console.log(categorie);
-    console.log(materiau);
-    console.log(prixMax);
-
-    this.produitsService.getProduitParRecherche(categorie,materiau,0,prixMax).subscribe(produits => {
+  this.produitsService.getProduitParRecherche(this.Precherche).subscribe(produits => {
         this.produits = produits;
         this.router.navigate(['/produits']);
       });
-    });
   }
+ /*  this.route.params.subscribe((params: Params) => {
+    console.log("Mesparams" + params);
+    console.log("/produits/"+params["categorie"]);
+    let categorie = params["categorie"];
+    let materiau = params["materiau"];
+    let prixMax = params["PrixMax"];
+
+    console.log("categorie" + categorie);
+    console.log(materiau);
+    console.log(prixMax); 
+
+    
+    });
+  }*/
   
   onAddToCart(produit){
     console.log("addtocart");

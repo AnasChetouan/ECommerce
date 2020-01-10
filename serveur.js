@@ -69,14 +69,18 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
 
         /* Liste des materiaux de produits */
+
         app.get("/materiaux", (req, res) => {
             console.log("/materiaux");
             materiaux = [];
             try{
-                db.collection("materiaux").find().toArray((err, documents) => {
+                db.collection("produits").find().toArray((err, documents) => {
                     for (let doc of documents) {
-                        if (!materiaux.includes(doc.materiaux)) 
-                        materiaux.push(doc.materiaux);
+                    	console.log(doc.materiaux);
+                    	for(let m of doc.materiaux){
+                    		if (!materiaux.includes(m)) 
+                        		materiaux.push(m);
+                    	}
                     }
                     console.log("Renvoi de "+JSON.stringify(materiaux));
                     res.end(JSON.stringify(materiaux));
@@ -247,8 +251,9 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             let prix2 = req.params.prix2;
             retour = [];
             console.log(prix1);
-            //console.log(prix2);
-            //console.log(materiau);
+            console.log(prix2);
+            console.log(materiau);
+            console.log(categorie);
             //console.log(prix1);
             //console.log("/produits/"+categorie+"/"+materiau);
             try{
@@ -350,7 +355,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                             for (let doc of documents) {
                                 for(let x of doc.materiaux){
                                     if(x === materiau){
-                                        if(ParseInt(doc.prix) <= ParseInt(prix2) && ParseInt(doc.prix) >= ParseInt(prix1)){
+                                        if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= parseInt(prix1)){
                                             retour.push(doc);
                                         }
                                     }
@@ -460,7 +465,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                         for (let doc of documents) {
                             for(let x of doc.materiaux){
                                 if(x === materiau){
-                                    if(ParseInt(doc.prix) <= ParseInt(prix2) && ParseInt(doc.prix) >= ParseInt(prix1)){
+                                    if(parseInt(doc.prix) <= parseInt(prix2) && parseInt(doc.prix) >= parseInt(prix1)){
                                         retour.push(doc);
                                     }
                                 }
