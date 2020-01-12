@@ -1,5 +1,5 @@
 [
     {"nom":"U", "prénom":"Ser", "email":"user@mail.com", "password":"123"},
-    {"nom":"U", "prénom":"Ser2", "email":"user2@mail.com", "password":"123"}
-    {"nom":"admin", "prénom":"Estelle", "email":"cocolepolo@mail.com", "password":"123456"}
+    {"nom":"U", "prénom":"Ser2", "email":"user2@mail.com", "password":"123"},
+    {"nom":"admin", "prénom":"Estelle", "email":"cocolepolo@gmail.com", "password":"123456"}
 ]

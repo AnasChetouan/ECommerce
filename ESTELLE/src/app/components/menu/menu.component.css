@@ -1585,21 +1585,11 @@ h1 {
 		display: inline-block;
 	}
 
-	#menu .trigger {
-		display: block;
-		width: 35px;
-		height: 30px;
-		position: absolute;
-		top: 20px;
-		right: 10px;
-		cursor: pointer;
-	}
-
 	#menu ul {
+            
 		top: 70px;
 		left: 0;
 		right: 0;
-		display: none;
 		z-index: 999;
 		background: #fff;
 		position: absolute;
@@ -1612,10 +1602,7 @@ h1 {
 	}
 
 	#menu li {
-		padding: 5px 20px;
-		display: block;
-		overflow: hidden;
-		text-align: center;
+            padding : 19px 10px 21px;
 	}
 
 	#menu .container {
