@@ -1,6 +1,36 @@
-<nav class="navbar navbar-dark bg-dark navbar-fixed-top navbar-expand">
-    <div class="container-fluid">
-        <ul *ngIf="!(user|async)" class ="navbar-nav">
+<nav id="menu">
+    <ul *ngIf="!(user|async)">
+            <li class ="nav-item">
+                <a class="nav-link active" routerLink="/membres/connexion">Se connecter</a>
+            </li>
+            <li class ="nav-item">
+                <a class="nav-link active" routerLink="/membres/newUser">Inscription</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" routerLink="/produits">Liste des produits</a>
+            </li>
+    </ul>
+     <ul *ngIf="user|async">
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/produits">Liste des produits</a>
+            </li>
+            <li class="nav-item">
+                    <a class="nav-link active" routerLink="/panier">Panier</a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link active" routerLink="/categories">Nos categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" (click)="deconnexion()">Déconnexion</a>
+            </li>
+        </ul>
+</nav>
+
+<!--
+<nav id="menu">
+    <div class="container">
+        <div class="trigger"></div>
+        <ul *ngIf="!(user|async)" class ="navbar-nav" >
             <li class ="nav-item">
                 <a class="nav-link active" routerLink="/membres/connexion">Se connecter</a>
             </li>
@@ -26,4 +56,4 @@
             </li>
         </ul>
     </div>
-</nav>
+</nav> -->
