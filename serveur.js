@@ -131,19 +131,54 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         });
 
         /* Liste des produits dans le panier, pour le user identifié par 'email' */
+        // http://localhost:8888/panier/get/user@mail.com
         app.get("/panier/get/:email", (req, res) => {
             console.log("/panier");
             let email = req.params.email;
-            produits = [];
+            panierResultat = [];
             console.log("email reçue:"+email);
+
+            var retour = function() {
+                console.log("Panier retourné:"+JSON.stringify(panierResultat));
+                res.end(JSON.stringify(panierResultat));
+            }
+
             try{
-                db.collection("paniers").find({proprio:email}).toArray((err, documents) => {
-                    for (let doc of documents) {
-                        if (doc != undefined && !produits.includes(doc)) 
-                            produits.push(doc);
+                db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
+
+                    for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
+                        if (panier != undefined){
+                            console.log("contenu :"+JSON.stringify(panier.contenu));
+                            var produits = panier.contenu;
+
+                            var i = 1;
+                            for(let p of produits){
+                                //console.log("Un contenu du panier:"+JSON.stringify(p));
+                                if (p != undefined){
+                                    /* Récupérer le produit par sa ref */
+                                    try{
+                                        console.log("ref :"+ p.ref);
+                                        db.collection("produits").find({"ref":p.ref}).toArray((err, produitsDetailles) => {
+                                            //console.log("Produit:"+JSON.stringify(documents2[0]));
+                                            var produit = produitsDetailles[0];
+                                            // On associe la quantité associée à ce produit dans le panier : 
+                                            produit.quantite = p.quantite; 
+                                            panierResultat.push(produit);
+                                            
+                                            //console.log("Contenu du panier à ce moment:"+JSON.stringify(panierResultat));
+                                            if(i == produits.length) // Si le produit actuel est le dernier, alors on appelle la fonction de retour comme le db.collection.find est asynchrone
+                                                retour();
+                                            i++;
+                                        });
+                                    } catch(e) {
+                                        console.log("/produits/"+ ref + " : " + e);
+                                        res.end(JSON.stringify([])); 
+                                    }
+                                }
+                            }
+                        }
                     }
-                    console.log("Renvoi de "+JSON.stringify(produits));
-                    res.end(JSON.stringify(produits));
+
                 });
             } catch(e) {
                 console.log("Erreur sur /panier : " + e);
@@ -151,37 +186,306 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             }
         });
 
-     /* Ajout produit dans panier */
-     app.post("/panier/ajouter", (req, res) => {
-        console.log("/panier/ajouter"+JSON.stringify(req.body));
-        let produit = {test: 1};
-        try{
-            db.collection("panier").insertOne(
-                {"proprio":"user@mail.com",
-            "contenu":[
-                produit
-            ]  
-            });
-            console.log("Insertion faite");
-            
-        } catch(e) {
-            res.end(JSON.stringify({"resultat": 0, "message": e}));
-        }
-    });
+        /* Ajout produit dans panier */
+        app.post("/panier/ajouter", (req, res) => {
+            console.log("/panier/ajouter"+JSON.stringify(req.body));
+            let email = req.body.email;
+            let ref = req.body.ref;
 
-
-        /* Récupérer le produit par son id */
-        app.get("/produits/:ref", (req, res) => {
-            let ref = req.params.ref;
-            console.log("/produits/"+ref);
             try{
-                db.collection("produits").find({"ref":ref}).toArray((err, documents) => {
-                    res.end(JSON.stringify(documents));
-                    console.log("Renvoi de "+JSON.stringify(documents));
+                db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
+                    for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
+                        if (panier != undefined){
+                            console.log("contenu :"+JSON.stringify(panier.contenu));
+                            var produits = panier.contenu;
+                            var estDansPanier = false;
+                            
+                            var i = 0;
+                            var indiceProduit = 0;
+                            for(let p of produits){
+                                if (p.ref == ref) {
+                                    estDansPanier = true;
+                                    indiceProduit = i;
+                                }
+                                i++;
+                            }
+                            if(estDansPanier){ // Le produit que l'on souhaite ajouté est déjà dans le panier, dans ce cas on agit seulement sur la quantité
+                                produits[indiceProduit].quantite++;
+                                try{
+                                    db.collection("paniers").updateOne(
+                                        {"proprio":email},
+                                        {$set:{ "contenu" : produits}}
+                                    );
+
+                                    console.log("Produit ajouté");
+                                    res.end(JSON.stringify({"resultat": 1, "message": "L'ajout a bien été pris en compte!"}));
+                                } catch(e){
+                                    console.log("Erreur ajout produit existant panier : "+e);
+                                    res.end(JSON.stringify({"resultat": 0, "message": e}));
+                                }
+                            }
+                            else{ // Sinon on l'ajoute directement avec une quantité de 1
+                                produits.push({"ref":ref, "quantite" : 1});
+                                try{
+                                    db.collection("paniers").updateOne(
+                                        {"proprio":email},
+                                        {$set:{ "contenu" : produits}}
+                                    );
+                                    console.log("Produit ajouté");
+                                    res.end(JSON.stringify({"resultat": 1, "message": "L'ajout a bien été pris en compte!"}));
+
+                                } catch(e){
+                                    //console.log("Message retourné: "+JSON.stringify(resultat));
+                                    console.log("Erreur ajout nouveau produit panier : "+e);
+                                    res.end(JSON.stringify({"resultat": 0, "message": e}));
+                                }
+                
+                            }
+                           
+                        }
+                    }
+                });
+
+            } catch(e) {
+                console.log("Erreur get panier : "+e);
+                res.end(JSON.stringify({"resultat": "", "message": e}));
+            }
+        });
+
+        /* +1 dans la quantité d'un certain produit */
+        app.post("/panier/ajoutUn", (req, res) => {
+            console.log("/panier/ajoutUn/"+JSON.stringify(req.body));
+            let email = req.body.email;
+            let ref = req.body.ref;
+            panierResultat = [];
+
+            var retour = function() {
+                console.log("Panier retourné:"+JSON.stringify(panierResultat));
+                res.end(JSON.stringify(panierResultat));
+            }
+
+            try{
+                db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
+
+                    for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
+                        if (panier != undefined){
+                            console.log("contenu :"+JSON.stringify(panier.contenu));
+                            var produits = panier.contenu;
+
+                            var i = 1;
+                            for(let p of produits){
+                                //console.log("Un contenu du panier:"+JSON.stringify(p));
+                                /* Récupérer le produit par sa ref */
+                                try{
+                                    db.collection("produits").find({"ref":p.ref}).toArray((err, produitsDetailles) => {
+                                        //console.log("Produit:"+JSON.stringify(documents2[0]));
+                                        var produit = produitsDetailles[0];
+                                        if(p.ref == ref){
+                                            var updateQuantite = p.quantite + 1;
+                                            // On associe la quantité associée à ce produit dans le panier : 
+                                            produit.quantite = updateQuantite; 
+                                            p.quantite = updateQuantite;
+
+                                            try{
+                                                db.collection("paniers").updateOne(
+                                                    {"proprio":email},
+                                                    {$set:{ "contenu" : produits}}
+                                                );
+
+                                                console.log(("p : "+JSON.stringify(p)));
+                                                //db.collection("paniers").findOneAndReplace({"email":email},{["contenu."+i-1]:p});
+                                                console.log("Update fini :");
+                                            } catch(e){
+                                                console.log("erreur modif :"+e);
+                                            }
+                                        }
+
+                                        else
+                                            produit.quantite = p.quantite; 
+
+                                        panierResultat.push(produit);
+                                        
+                                        //console.log("Contenu du panier à ce moment:"+JSON.stringify(panierResultat));
+                                        if(i == produits.length) // Si le produit actuel est le dernier, alors on appelle la fonction de retour comme le db.collection.find est asynchrone
+                                            retour();
+                                        i++;
+                                    });
+                                } catch(e) {
+                                    console.log("/produits/"+ ref + " : " + e);
+                                    res.end(JSON.stringify([])); 
+                                }
+                            }
+                        }
+                    }
+
                 });
             } catch(e) {
-                console.log("/produits/"+ ref + " : " + e);
+                console.log("Erreur sur /panier : " + e);
                 res.end(JSON.stringify([]));
+            }
+        });
+
+        /* -1 dans la quantité d'un certain produit */
+            app.post("/panier/retraitUn", (req, res) => {
+                console.log("/panier/retraitUn/"+JSON.stringify(req.body));
+                let email = req.body.email;
+                let ref = req.body.ref;
+                panierResultat = [];
+    
+                var retour = function() {
+                    console.log("Panier retourné:"+JSON.stringify(panierResultat));
+                    res.end(JSON.stringify(panierResultat));
+                }
+    
+                try{
+                    db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
+    
+                        for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
+                            if (panier != undefined){
+                                console.log("contenu :"+JSON.stringify(panier.contenu));
+                                var produits = panier.contenu;
+    
+                                var i = 1;
+                                var nbProduitsAvant = produits.length;
+                                for(let p of produits){
+                                    //console.log("Un contenu du panier:"+JSON.stringify(p));
+                                    /* Récupérer le produit par sa ref */
+                                    try{
+                                        db.collection("produits").find({"ref":p.ref}).toArray((err, produitsDetailles) => {
+                                            //console.log("Produit:"+JSON.stringify(documents2[0]));
+                                            var produit = produitsDetailles[0];
+                                            if(p.ref == ref){
+                                                var updateQuantite = p.quantite - 1;
+                                                // On associe la quantité associée à ce produit dans le panier : 
+                                                produit.quantite = updateQuantite; 
+                                                p.quantite = updateQuantite;
+                                                if (updateQuantite < 1){
+                                                    produits.pop(p);
+                                                }
+                                                else
+                                                    panierResultat.push(produit);
+                                                try{
+                                                    db.collection("paniers").updateOne(
+                                                    {"proprio":email},
+                                                    {$set:{ "contenu" : produits}}
+                                                    );
+                                                } catch(e){
+                                                    console.log("erreur modif :"+e);
+                                                }
+            
+                                            }
+    
+                                            else{
+                                                produit.quantite = p.quantite; 
+                                                panierResultat.push(produit);
+                                            }
+                                            
+                                            //console.log("Contenu du panier à ce moment:"+JSON.stringify(panierResultat));
+                                            if(i == nbProduitsAvant) // Si le produit actuel est le dernier, alors on appelle la fonction de retour comme le db.collection.find est asynchrone
+                                                retour();
+                                            i++;
+                                        });
+                                    } catch(e) {
+                                        console.log("/produits/"+ ref + " : " + e);
+                                        res.end(JSON.stringify([])); 
+                                    }
+                                }
+                            }
+                        }
+    
+                    });
+                } catch(e) {
+                    console.log("Erreur sur /panier : " + e);
+                    res.end(JSON.stringify([]));
+                }
+            });
+
+        /* Supprimer un produit du panier */
+        app.post("/panier/supprimer", (req, res) => {
+            console.log("/panier/supprimer/"+JSON.stringify(req.body));
+            let email = req.body.email;
+            let ref = req.body.ref;
+            var panierResultat = [];
+
+            try{
+                db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
+
+                    for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
+                        if (panier != undefined){
+                            console.log("contenu :"+JSON.stringify(panier.contenu));
+                            var produits = panier.contenu;
+
+                            var i = 1;
+                            var nbProduitsAvant = produits.length;
+                            for(let p of produits){
+                                //console.log("Un contenu du panier:"+JSON.stringify(p));
+                                /* Récupérer le produit par sa ref */
+                                try{
+                                    db.collection("produits").find({"ref":p.ref}).toArray((err, produitsDetailles) => {
+                                        //console.log("Produit:"+JSON.stringify(documents2[0]));
+                                        var produit = produitsDetailles[0];
+                                        if(p.ref == ref){
+                                            produits.pop(p); // On l'enlève
+
+                                            try{
+                                                db.collection("paniers").updateOne(
+                                                    {"proprio":email},
+                                                    {$set:{ "contenu" : produits}}
+                                                );
+
+                                            } catch(e){
+                                                console.log("erreur modif :"+e);
+                                            }
+                                        }
+
+                                        else{
+                                            produit.quantite = p.quantite; 
+                                            panierResultat.push(produit); // On push seulement dans le panier de retour si c'est pas le produit qu'on veut supprimer
+                                        }
+                                        
+                                        //console.log("Contenu du panier à ce moment:"+JSON.stringify(panierResultat));
+                                        if(i == nbProduitsAvant){// Si le produit actuel est le dernier à traiter, alors on retourne le panier, comme db.find est asynchrone, une solution est de procéder comme cela
+                                            console.log("Panier retourné:"+JSON.stringify(panierResultat));
+                                            res.end(JSON.stringify(panierResultat));
+                                        }
+                                        i++; // On incrémente pour indiquer qu'on traite le produit suivant
+
+                                    });
+                                } catch(e) {
+                                    console.log("/produits/"+ ref + " : " + e);
+                                    res.end(JSON.stringify([])); 
+                                }
+                            }
+                        }
+                    }
+
+                });
+            } catch(e) {
+                console.log("Erreur sur /panier : " + e);
+                res.end(JSON.stringify([]));
+            }
+        });
+
+        /* Vide le panier */
+        app.get("/panier/validerPanier/:email", (req, res) => {
+            console.log("/panier/viderPanier/"+JSON.stringify(req.body));
+            let email = req.params.email;
+            panierResultat = [];
+
+            var retour = function() {
+                console.log("Panier retourné:"+JSON.stringify(panierResultat));
+                res.end(JSON.stringify(panierResultat));
+            }
+            
+            try{
+                db.collection("paniers").updateOne(
+                {"proprio":email},
+                {$set:{ "contenu" : [] }} // On remplace le contenu par un tableau vide
+                );
+                retour();
+            } catch(e){
+                console.log("erreur vidage panier :"+e);
+                retour();
             }
         });
 
@@ -501,45 +805,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         }
     });
 
-    
-    
-    /* Liste des produits dans le panier, pour le user identifié par 'email' */
-        app.get("/panier/:email", (req, res) => {
-        app.get("/panier/get/:email", (req, res) => {
-            console.log("/panier");
-            let email = req.params.email;
-            produits = [];
-            MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
-            }
-        )});
-        });
-
-     /* Ajout produit dans panier */
-     app.post("/panier/ajouter", (req, res) => {
-        console.log("/panier/ajouter"+JSON.stringify(req.body));
-        let produit = {test: 1};
-        try{
-            db.collection("panier").insertOne(
-                {"proprio":"user@mail.com",
-            "contenu":[
-                produit
-            ]  
-            });
-            console.log("Insertion faite");
-
-        } catch(e) {
-            res.end(JSON.stringify({"resultat": 0, "message": e}));
-        }
-    });
-
-
-        /* Récupérer le produit par son id */
-        app.get("/produits/:ref", (req, res) => {
-            MongoClient.connect(url, {useNewUrlParser: true}, (err, client) => {
-        });
-    });
-
-
     app.post("/membres/add", (req, res) => {
         //console.log("/membres/add avec "+JSON.stringify(req.body));
         let mdp1 = req.body.password1;
@@ -576,8 +841,14 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                     let result = db.collection("membres").insertOne(userJson, function(err, res2){
                                     if(err) {}
                                     else {
-                                        res.end(JSON.stringify({"resultat": 1, "message": "Membre Ajouté"}));
-                                        //console.log("reussi");
+                                        db.collection("paniers").insertOne({"proprio":req.body.email, "contenu":[]}, function(err, res3){
+                                            if(err){}
+                                            else{
+                                                res.end(JSON.stringify({"resultat": 1, "message": "Membre Ajouté"}));
+                                                //console.log("reussi");
+                                            }
+                                        });
+
                                     }
                                     });
                                 }

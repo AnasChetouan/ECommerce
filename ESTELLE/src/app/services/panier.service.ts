@@ -4,12 +4,12 @@ import { Observable } from 'rxjs';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        "Access-Control-Allow-Methods": "GET,POST",
-        "Access-Control-Allow-Headers": "Content-type",
-        "Content-Type": "application/add",
-        "Access-Control-Allow-Origin": "*"
+      "Access-control-Allow-Methods": "GET,POST",
+      "Access-control-Allow-Headers": "Content-type",
+      "Content-type": "application/json",
+      "Access-control-Allow-Origin": "*"
     })
-};
+  };
 
 @Injectable({providedIn: 'root'})
 
@@ -24,9 +24,30 @@ export class PanierService {
     }
 
     //Add items to cart
-    saveItemPanier(produit): Observable<any> {
-        console.log("saveUserItem");
-        return this.http.post(this.urlBase+'panier/ajouter', produit, httpOptions);
+    panierAjouterProduit(data): Observable<any> {
+        console.log("le produit de référence : "+data["ref"]+" a été ajouté au panier");
+        return this.http.post(this.urlBase+'panier/ajouter', JSON.stringify(data), httpOptions);
     }
+
+    panierSupprimerProduit(data): Observable<any> {
+        console.log("le produit de référence : "+data["ref"]+" a été supprimé du panier");
+        return this.http.post(this.urlBase+'panier/supprimer', JSON.stringify(data), httpOptions);
+    }
+
+    panierAjoutUn(data): Observable<any> {
+        console.log("+1 dans le panier du produit de référence : "+data["ref"]);
+        return this.http.post(this.urlBase+'panier/ajoutUn', JSON.stringify(data), httpOptions);
+    }
+
+    panierRetraitUn(data): Observable<any> {
+        console.log("-1 dans le panier du produit de référence : "+data["ref"]);
+        return this.http.post(this.urlBase+'panier/retraitUn', JSON.stringify(data), httpOptions);
+    }
+
+    validerCommande(email): Observable<any> {
+        console.log("Le panier a été vidé ! ");
+        return this.http.get(this.urlBase+'panier/validerPanier/'+email);
+    }
+    
     
 }

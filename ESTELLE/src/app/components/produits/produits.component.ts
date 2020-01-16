@@ -72,13 +72,13 @@ export class ProduitsComponent implements OnInit {
   }*/
   
   onAddToCart(produit){
-    console.log("addtocart");
     var e;
     this.user.subscribe(email=>{e = email;})
 
-    this.PanierService.saveItemPanier({"email":e, "produit":produit}).subscribe(reponse => {
+    this.PanierService.panierAjouterProduit({"email":e, "ref":produit}).subscribe(reponse => {
       if (reponse['resultat']){
-        this.router.navigate(['/categories']);
+        console.log("Message reçu : "+reponse["message"]);
+        this.router.navigate(['/panier']);
       }
     });
   }

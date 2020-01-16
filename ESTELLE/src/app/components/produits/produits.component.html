@@ -38,9 +38,15 @@
 					<section class="products">
         					<div *ngFor="let produit of produits">
         						<article>
-            						<div class="card-text mx-auto"> <h3>{{produit['nom']}}</h3><!--({{produit['categorie']}})-->
-                					<h4>Prix : {{produit['prix']}} €</h4>
-            							<div *ngIf="(user|async)">  <a (click)="onAddToCart(produit)" class="btn-add">Ajouter au panier</a>
+            						<div class="card-text mx-auto"> <h3>{{produit['nom']}} ({{produit['ref']}})</h3><!--({{produit['categorie']}})-->
+									<h4>Prix : {{produit['prix']}} €</h4>
+									Description : {{produit['description']}}
+									<br> <br>
+									Matériaux :
+									<div *ngFor="let m of produit['materiaux']">
+										{{m}}
+									</div>
+            							<div *ngIf="(user|async)">  <a (click)="onAddToCart(produit['ref'])" class="btn-add">Ajouter au panier</a>
         								</div>
     								</div>
     							</article>

@@ -1,7 +1,7 @@
 [
     {"proprio":"user@mail.com",
         "contenu":[
-            {"ref":"BR-OAR1", "quantite":"1"}, {"ref":"BR-AR1", "quantite":"2"}
+            {"ref":"BR-OAR1", "quantite":1}, {"ref":"BR-AR1", "quantite":2}
         ]  
     }
 ]

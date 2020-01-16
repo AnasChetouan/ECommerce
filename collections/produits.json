@@ -1,37 +1,37 @@
 [{ "ref": "BR-OAR1",
-  "categorie":"bracelet",
-    "nom":"bracelet ori",
+  "categorie":"Bracelets",
+    "nom":"Bracelet ori",
     "materiaux":[
-      "or",
-      "argent"
+      "Or",
+      "Argent"
     ],
     "prix":"180",
-    "description": "eppaisseur 3 millimetre, taille L : 17centimetres parfait pour une soirée mondaine"
+    "description": "épaisseur de 3 millimètres, taille L : 17centimètres, parfait pour une soirée mondaine"
    },
    { "ref": "BR-AR1",
-    "categorie":"bracelet",
-    "nom":"bracelet full argent",
+    "categorie":"Bracelets",
+    "nom":"Bracelet full Argent",
     "materiaux":[
-      "argent"
+      "Argent"
     ],
     "prix":"90",
-    "description": "eppaisseur 5 millimetre, taille M : 21centimetres son teint vous va à ravir"
+    "description": "épaisseur 5 millimètres, taille M : 21centimètres, son teint vous va à ravir"
    },
    { "ref": "CO-OR1",
-     "categorie":"collier",
-    "nom":"collier ori",
+     "categorie":"Colliers",
+    "nom":"Collier ori",
     "materiaux":[
-      "argent"
+      "Argent"
     ],
     "prix":"76",
-    "description": "eppaisseur 8 millimetre, taille M : 39centimetres sa perle ne vous rendra pas indifferent"
+    "description": "épaisseur de 8 millimètres, taille M : 39centimètres, sa perle ne vous rendra pas indifférent"
    },
   { "ref": "BA-ARD1",
-    "categorie":"bague",
-    "nom":"valentine",
+    "categorie":"Bagues",
+    "nom":"Valentine",
     "materiaux":[
-      "argent",
-      "diamant"
+      "Argent",
+      "Diamant"
     ],
     "prix":"654",
     "description": "taille 53 parfait pour le 14 fevrier"

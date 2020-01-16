@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { PanierService } from "../../services/panier.service";
-import { ProduitsService } from "../../services/produits.service";
+//import { ProduitsService } from "../../services/produits.service";
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -13,52 +13,74 @@ import { Observable } from 'rxjs';
 })
 export class PanierComponent implements OnInit {
   id: string;
-  private panier: Object[] = new Array();
-  //private panier: String = "";
-  private produits: Object[] = new Array();
-  private contenu: Object[] = new Array();
+  private panier: Object[];
+  private dataProduitPanier = {"email":"", "ref":""};
   private user:Subject<string> = new BehaviorSubject<string>(undefined);
+  private email: string;
 
   constructor(
     private panierService: PanierService,
     private router: Router,
-    private authService: AuthentificationService,
-    private produitService: ProduitsService
-   // private flashMessage: NgFlashMessageService
+    private authService: AuthentificationService
+    //private produitService: ProduitsService
+    //private flashMessage: NgFlashMessageService
    ) {
     this.user = this.authService.getUser();
+    this.user.subscribe(email=>{this.email = email;});
+    this.dataProduitPanier["email"] = this.email;
    }
 
   ngOnInit() {
-    var e;
-    this.user.subscribe(email=>{e = email;});
-    console.log("email envoyé : "+e);
-
-    this.panierService.getPanier(e).subscribe(value => {
-      this.panier = value;
-      this.decomposerPanier()
-    })
+    this.panierService.getPanier(this.email).subscribe(value => {
+     this.panier = value;
+    });
   }
 
-  decomposerPanier(){
-    if (this.panier[0] != null){
-      var value = this.panier[0];
-      this.contenu = value["contenu"];
-      //console.log("on contenu : "+JSON.stringify(this.contenu));
+  moinsUn(ref){ 
+  this.dataProduitPanier["ref"] = ref;
+  //console.log("t:"+JSON.stringify(this.dataProduitPanier));
+    this.panierService.panierRetraitUn(this.dataProduitPanier).subscribe(value => {
+      // On reçoit le nouveau panier, mis à jour
+      this.panier = value;
+    });
+  }
 
-      for(let p of this.contenu){
-       // console.log("p :"+JSON.stringify(p));
-        var ref = p["ref"];
-       // console.log("ref:"+ref);
-        var produit;
-        this.produitService.getProduitParRef(ref).subscribe(x => { produit = x[0]; 
-          //console.log("Produit affiché : "+JSON.stringify(produit));
-          this.produits.push(produit);
-          //console.log("Produits : "+JSON.stringify(this.produits));
-        })
+  plusUn(ref){
+    // On récupère la référence du produit à modifier
+    this.dataProduitPanier["ref"] = ref;
+    this.panierService.panierAjoutUn(this.dataProduitPanier).subscribe(value => {
+      // On reçoit le nouveau panier, mis à jour
+      this.panier = value;
+    });
+  }
 
-      }
+  supprimerProduit(ref){
+    // On récupère la référence du produit à modifier
+    this.dataProduitPanier["ref"] = ref;
+    this.panierService.panierSupprimerProduit(this.dataProduitPanier).subscribe(value => {
+      // On reçoit le nouveau panier, mis à jour
+      this.panier = value;
+      this.router.navigate(['/produits']);
+    });
+  }
+
+  sommePrix() { 
+    var somme = 0;
+    for(let i=0;i<this.panier.length;i++){
+      let prix = this.panier[i]['prix'];
+      let quantite = this.panier[i]['quantite'];
+      somme += prix * quantite;
     }
+
+    return somme; 
+  }
+
+  validerCommande(){
+    this.panierService.validerCommande(this.email).subscribe(value => {
+      // On reçoit le nouveau panier, mis à jour
+      this.panier = value;
+      this.router.navigate(['/produits']);
+    });
   }
 
 }
