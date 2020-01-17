@@ -12,7 +12,7 @@ import { AuthentificationService } from '../../services/authentification.service
 
 export class NewUserComponent {
 	
-  private utilisateur = {"nom":"", "prenom":"","email":"", "password1":"", "password2":""};
+  private utilisateur = {"nom":"", "prenom":"","email":"", "password1":"", "password2":"", "admin":""};
   private message: string = "";
 
  constructor(private newUser: newUserService, private router: Router, private authService: AuthentificationService) { }
@@ -24,10 +24,12 @@ export class NewUserComponent {
     this.newUser.saveUser(this.utilisateur).subscribe(reponse => {
       this.message = reponse['message'];
       if (reponse['resultat']){
+        if(reponse['resultat'] == 0){
         this.authService.connect(this.utilisateur.email);
         this.newUser.connect(this.utilisateur.email);
-
         this.router.navigate(['/categories']);
+        }
+        else{ }  
       }
       setTimeout( () => { this.router.navigate(['/categories']); }, 1000);
     });

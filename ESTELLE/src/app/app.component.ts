@@ -8,3 +8,4 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ESTELLE';
 }
+import {LOCAL_STORAGE,WebStorageService} from 'angular-webstorage-service'; 

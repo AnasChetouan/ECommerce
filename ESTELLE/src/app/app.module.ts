@@ -17,6 +17,8 @@ import { ProduitsComponent } from './components/produits/produits.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { PanierComponent } from './components/panier/panier.component';
 import { NewUserComponent } from './components/new-user/new-user.component';
+import { StorageServiceModule }  from 'angular-webstorage-service'
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { NewUserComponent } from './components/new-user/new-user.component';
     NoopAnimationsModule,
     HttpClientModule,
     FormsModule,
+    BrowserModule,
+    StorageServiceModule
   ],
   providers: [ProduitsService],
   bootstrap: [AppComponent]

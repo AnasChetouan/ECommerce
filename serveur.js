@@ -833,7 +833,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 '"prenom":"'+req.body.prenom+'",'+
                                 '"email":"'+req.body.email+'",'+
                                 '"password":"'+req.body.password1+
-                                '"}';
+                                '"admin":"0"}';
                                 //console.log("user avant JSON avec "+user);
                                 let userJson = JSON.parse(user);
                                 console.log("/membres/add avec "+JSON.stringify(userJson));

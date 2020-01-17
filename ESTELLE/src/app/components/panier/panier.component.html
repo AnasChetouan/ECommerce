@@ -4,18 +4,18 @@
       <table>
         <tr>
           <th class="items">Bijoux</th>
-          <th class="price">Price</th>
+          <th class="price">Prix</th>
           <th class="qnt">Quantité</th>
         </tr>
         <tr *ngFor="let produit of panier">
           <td class="items" >
             <div class="image">
-              <img src="images/6.jpg" alt="">
+              <!--<img src="images/6.jpg" alt="">-->
             </div>
             <h3><a href="#">{{produit['nom']}}</a></h3>
             </td>
           <td class="price">{{produit['prix']}}€ </td>
-          <td class="qnt">{{produit['quantite']}}<button (click)="moinsUn(produit['ref'])" style="margin: 8%;width: 25%;"> - </button> <button (click)="plusUn(produit['ref'])" style="margin: 8%;width: 25%;"> + </button></td>
+          <td class="qnt">{{produit['quantite']}}<button (click)="moinsUn(produit['ref'])" style="margin: 6%;width: 25%;"> - </button> <button (click)="plusUn(produit['ref'])" style="margin: 6%;width: 25%;"> + </button></td>
           </tr>
         </table>
       </div>

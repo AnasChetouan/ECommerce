@@ -30,8 +30,18 @@ export class AuthentificationService {
     disconnect() { this.user.next(null); }
 
     verificationConnexion(identifiants): Observable<any> {
+        if(identifiants["email"] == "cocolepolo@gmail.com"){
+            identifiants["admin"] = "1";
+        } 
+        else{
+            identifiants["admin"] = "0";
+        } 
         return this.http.post(this.baseURL+'membres/connexion', JSON.stringify(identifiants), httpOptions);
     }
+
+    getAdmin(identifiants){
+        return identifiants["admin"] = "1";
+    }  
 
     /*
     onLoadToken() {
