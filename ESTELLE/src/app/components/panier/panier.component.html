@@ -1,17 +1,57 @@
-<div>
+<div class="container" *ngIf="panier; else noItems">
+  <div id="content" class="full">
+    <div class="cart-table">
+      <table>
+        <tr>
+          <th class="items">Bijoux</th>
+          <th class="price">Price</th>
+          <th class="qnt">Quantité</th>
+        </tr>
+        <tr *ngFor="let produit of panier">
+          <td class="items" >
+            <div class="image">
+              <img src="images/6.jpg" alt="">
+            </div>
+            <h3><a href="#">{{produit['nom']}}</a></h3>
+            </td>
+          <td class="price">{{produit['prix']}}€ </td>
+          <td class="qnt">{{produit['quantite']}}<button (click)="moinsUn(produit['ref'])" style="margin: 8%;width: 25%;"> - </button> <button (click)="plusUn(produit['ref'])" style="margin: 8%;width: 25%;"> + </button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="total-count">
+      <h4>Sous-total:  {{sommePrix()}}€ </h4>
+      <p> + <i>Livraison Gratuite </i></p>
+      <h3>Total a payer: <strong>{{sommePrix()}}€</strong></h3>
+      <a href="#" class="btn-grey">Payer</a>
+    </div>
+</div>
+<ng-template #noItems>
+  <div class="text-center">
+    <div class="card">
+      <div class="card-body">
+        <p class="text-muted"> Aucun article dans le panier !</p>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!--
+<div class = "container">
+  <div id="content" class="full">
     <ng-container *ngIf="panier; else noItems">
-      <div class="row justifiy-conten-center">
         <div class="card-body">
             <div *ngFor="let produit of panier" class="card">
                 <div class="card-text mx-auto"> {{produit['nom']}} ({{produit['categorie']}})
                     Prix : {{produit['prix']}} €, quantité : x{{produit['quantite']}} <button (click)="moinsUn(produit['ref'])" class="btn btn-outline-danger"> - </button> <button (click)="plusUn(produit['ref'])" class="btn btn-outline-success"> + </button>
                     <button (click)="supprimerProduit(produit['ref'])" class="btn btn-danger"> Supprimer </button> 
+                </div>
             </div>
-        </div>
-        Montant à régler : {{sommePrix()}} €
+          Montant à régler : {{sommePrix()}} €
         <button (click)="validerCommande()"class="btn btn-success"> Valider la commande</button>
-    </div>
-    </div>
+      </div>
     </ng-container>
 
     <ng-template #noItems>
@@ -23,5 +63,5 @@
         </div>
       </div>
     </ng-template>
-    
-  </div>
+  </div>  
+</div>  -->

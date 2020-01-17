@@ -75,6 +75,20 @@ export class PanierComponent implements OnInit {
     return somme; 
   }
 
+  sommePrixP(refP) { 
+    console.log(refP);
+    var somme = 0;
+    for(let i=0;i<this.panier.length;i++){
+      if (this.panier[i]['refP'] == refP){ 
+        let prix = this.panier[i]['prix'];
+        let quantite = this.panier[i]['quantite'];
+        somme += prix * quantite;
+      } 
+    }
+
+    return somme; 
+  }
+
   validerCommande(){
     this.panierService.validerCommande(this.email).subscribe(value => {
       // On reçoit le nouveau panier, mis à jour

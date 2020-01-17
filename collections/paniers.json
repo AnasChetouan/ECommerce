@@ -3,5 +3,10 @@
         "contenu":[
             {"ref":"BR-OAR1", "quantite":1}, {"ref":"BR-AR1", "quantite":2}
         ]  
+    },
+    {"proprio":"cocolepolo@gmail.com",
+        "contenu":[
+            {"ref":"BR-OAR1", "quantite":1}, {"ref":"BR-AR1", "quantite":2}
+        ]  
     }
 ]
