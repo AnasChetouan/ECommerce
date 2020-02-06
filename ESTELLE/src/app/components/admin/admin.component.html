@@ -1,0 +1,94 @@
+<div class="products-wrap">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<h3>Choose File</h3>            
+				<div class="form-group">
+					<input type="file" name="image" (change)="fileProgress($event)" />
+				</div>
+				<div *ngIf="fileUploadProgress">
+					Upload progress: {{ fileUploadProgress }}
+				</div>
+				<div class="image-preview mb-3" *ngIf="previewUrl">
+					<img [src]="previewUrl" style=" max-width: 25%; max-height: 25%; " />                 
+				</div>
+	 
+				<div class="mb-3" *ngIf="uploadedFilePath">
+					{{uploadedFilePath}}
+				</div>
+
+				<label> nom</label>
+    			<input type="text" class="form-control" required [(ngModel)]="Precherche['nom']" name="nom" />
+				 
+				<label> description</label>
+    			<input type="text" class="form-control" required [(ngModel)]="Precherche['description']" name="description" />
+    			<fieldset>
+							<h6 class="imputSearch">Prix :</h6>
+							<input type="number" min="0" step="10" name ="prix" [(ngModel)]="Precherche['prix']" required>								
+				</fieldset>
+				<fieldset>
+							<h6 class="imputSearch">Categorie :</h6>
+							<input type="text" class="form-control" name ="categorie" [(ngModel)]="Precherche['categorie']" required>								
+				</fieldset>
+				<fieldset>
+							<h6 class="imputSearch">Materiau Principal :</h6>
+							<input type="text" class="form-control" name ="materiau1" [(ngModel)]="Precherche['materiau1']" required>								
+				</fieldset>
+				<fieldset>
+							<h6 class="imputSearch">Materiau Secondaire :</h6>
+							<input type="text" class="form-control"  name ="materiau2" [(ngModel)]="Precherche['materiau2']">								
+				</fieldset>
+				
+
+				<div class="form-group">
+					<button class="btn btn-primary"  (click)="onSubmit()">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<!--<div class="products-wrap">
+		<form (ngSubmit)="onSubmit()" #rechercheForm="ngForm">
+				<aside id="sidebar">
+					<div class="widget">
+						<h3>Recherche:</h3>
+						<fieldset>
+							<h6 class="imputSearch">Categorie:</h6>
+							<input list="cat" name ="categorie" >
+							<datalist id="cat" >
+								<option value="{{categorie}}" *ngFor="let categorie of categories" required [(ngModel)]="Precherche['categorie']">
+							</datalist>
+						</fieldset>
+					</div>
+					<div class="widget">
+						<h3>Recherche:</h3>
+						<fieldset>
+							<h6 class="imputSearch">Categorie:</h6>
+							<input list="mat" name ="materiau" >
+							<datalist id="mat" >
+								<option value="{{materiau}}" *ngFor="let materiau of materiaux" required [(ngModel)]="Precherche['materiau']">
+							</datalist>
+						</fieldset>
+					</div>
+					
+					<div class="widget">
+						<fieldset>
+						<input type="file" (change)="onFileChanged($event)">
+					</fieldset>
+					</div> 
+					<label>
+						<span>Select Image</span>
+						<input #imageInput type="file" accept="image/*" 
+						(change) ="processFile(imageInput)"> 
+					</label>
+					<div class="widget">
+						<fieldset>
+							<h6 class="imputSearch">Prix :</h6>
+									<input type="number" min="0" step="10" name ="prix2" [(ngModel)]="Precherche['prix2']">								
+						</fieldset>
+						<input type="submit" value="Rechercher" style = "margin : 10%">
+					</div>
+					
+				</aside>
+		</form>
+	</div>-->

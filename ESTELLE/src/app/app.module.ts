@@ -17,7 +17,9 @@ import { ProduitsComponent } from './components/produits/produits.component';
 import { HttpClient } from 'selenium-webdriver/http';
 import { PanierComponent } from './components/panier/panier.component';
 import { NewUserComponent } from './components/new-user/new-user.component';
-import { StorageServiceModule }  from 'angular-webstorage-service'
+import { StorageServiceModule }  from 'angular-webstorage-service';
+import { AdminComponent } from './components/admin/admin.component';
+import { ProduitComponent } from './components/produit/produit.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { StorageServiceModule }  from 'angular-webstorage-service'
     ConnexionComponent,
     ProduitsComponent,
     PanierComponent,
-    NewUserComponent
+    NewUserComponent,
+    AdminComponent,
+    ProduitComponent,
   ],
   imports: [
     BrowserModule,

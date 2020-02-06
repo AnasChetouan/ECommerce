@@ -1,5 +1,5 @@
 <div *ngIf="!(user|async)">
-    <p class = "card-header mx-auto"> En vous connectant, découvrez nos : </p>
+    <p class = "card-header"> En vous connectant, découvrez nos : </p>
     <div class = "card-body">
         <div *ngFor="let categorie of categories" class = "card">
             <p class = "card-text mx auto">{{categorie}}</p>

@@ -32,6 +32,7 @@ export class newUserService {
 
     connect(data: string) { this.user.next(data); }
 
+    
     //disconnect() { this.user.next(null); }
 
     /*verificationConnexion(identifiants): Observable<any> {

@@ -1,4 +1,6 @@
 <nav id="menu">
+    <div class="container">
+        <div class="trigger">
     <ul *ngIf="!(user|async)">
             <li class ="nav-item">
                 <a class="nav-link active" routerLink="/membres/connexion">Se connecter</a>
@@ -16,7 +18,7 @@
             </li>
             <li class="nav-item">
                     <a class="nav-link active" routerLink="/panier">Panier</a>
-                </li>
+            </li>
             <li class="nav-item">
                 <a class="nav-link active" routerLink="/categories">Nos categories</a>
             </li>
@@ -25,9 +27,11 @@
             </li>
                 
             <li class="nav-item" *ngIf="admin() == 1">
-                <a class="nav-link active" routerLink="/categories">Interface Admin</a>
+                <a class="nav-link active" routerLink="/admin">Interface Admin</a>
             </li>
         </ul>
+        </div>
+        </div>
 </nav>
 
 <!--

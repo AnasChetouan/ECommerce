@@ -1,0 +1,33 @@
+<div class="container">
+			<div id="content" class="full">
+				<div class="product" *ngFor="let p of produit" >
+					<div class="image">
+						<img src="../../../assets/{{p['ref']}}.jpg" alt="">
+					</div>
+					<div class="details" >
+						<h1>{{p['nom']}}</h1>
+						<h4>{{p['prix']}} €</h4>
+						<div class="entry">
+							<p>{{p['description']}}</p>
+							<div class="tabs">
+								<div class="nav">
+									<ul>
+										<li class="active">Materiaux</li>
+									</ul>
+								</div>
+								<div class="tab-content active" id="desc">
+										<div *ngFor="let m of p['materiaux']">
+											{{m}}
+										</div>
+								</div>
+							</div>
+						</div>
+						<div class="actions">
+							<a *ngIf="!(user|async)" routerLink="/membres/connexion" class="btn-grey">connectez vous pour ajouter au panier</a>
+							<a *ngIf="p.dispo == 0" class="btn-grey">Produit Indisponible</a>
+							<a *ngIf="(user|async) && (p.dispo == 1)" (click)="onAddToCart(p['ref'])" class="btn-grey">Ajouter au panier</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

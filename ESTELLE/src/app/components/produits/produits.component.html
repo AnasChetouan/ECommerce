@@ -33,25 +33,40 @@
 		</form>
 	</div>
 
+				<div id="content">
+					<section class="products">
+						<div *ngFor="let produit of produits">
+							<article>
+								<a routerLink="/produit/{{produit['ref']}}"><img src="../../../assets/{{produit['ref']}}.jpg" alt="" style="width: 80%"></a>
+								<h3><a href="product.html">{{produit['nom']}}</a></h3>
+								<h4><a href="product.html">{{produit['prix']}} €</a></h4>
+								<a routerLink="/produit/{{produit['ref']}}" class="btn-add"><b>Details</b></a>
+						</article>
+						</div>
+					</section>
+				</div>
 
+<!--
 	<div id="content">
 					<section class="products">
         					<div *ngFor="let produit of produits">
         						<article>
-            						<div class="card-text mx-auto"> <h3>{{produit['nom']}}</h3><!--({{produit['categorie']}})-->
-									<h4>Prix : {{produit['prix']}} €</h4>
-									{{produit['description']}}
-									<br> <br>
-									<div style = "border :1px">
-									Matériaux :
-									<div *ngFor="let m of produit['materiaux']">
-										{{m}}
-									</div>
-									</div>
+        							<a class="card-text mx-auto" routerLink="/produit">{{produit['nom']}}</a>
+            						<div class="card-text mx-auto">
+            							<img src="../../../assets/{{produit['ref']}}.jpg"/>
+										<h4>Prix : {{produit['prix']}} €</h4>
+										{{produit['description']}}
+										<br> <br>
+										<div style = "border :1px">
+										Matériaux :
+										<div *ngFor="let m of produit['materiaux']">
+											{{m}}
+										</div>
+										</div>
             							<div *ngIf="(user|async)">  <a (click)="onAddToCart(produit['ref'])" class="btn-add">Ajouter au panier</a>
         								</div>
     								</div>
     							</article>
 							</div>
 					</section>
-	</div>
+	</div>--> 

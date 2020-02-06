@@ -1,7 +1,7 @@
 <div class="container" *ngIf="panier; else noItems">
   <div id="content" class="full">
     <div class="cart-table">
-      <table>
+      <table style = "background-color: white;">
         <tr>
           <th class="items">Bijoux</th>
           <th class="price">Prix</th>
@@ -20,7 +20,7 @@
         </table>
       </div>
     </div>
-    <div class="total-count">
+    <div class="total-count" style = "background-color: white;">
       <h4>Sous-total:  {{sommePrix()}}€ </h4>
       <p> + <i>Livraison Gratuite </i></p>
       <h3>Total a payer: <strong>{{sommePrix()}}€</strong></h3>

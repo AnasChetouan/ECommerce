@@ -1,4 +1,5 @@
 const express = require ('express');
+const Formidable = require('formidable');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -47,6 +48,29 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             res.end(JSON.stringify([]));
         }
     });
+
+    /*produits par ref*/
+    app.get("/produit/:ref", (req, res) => {
+        let ref = req.params.ref;
+        try{
+            db.collection("produits").find({"ref":ref}).toArray((err, produitsDetailles) => {
+                                            //console.log("Produit:"+JSON.stringify(documents2[0]));
+                        var produit = produitsDetailles;
+                        res.end(JSON.stringify(produit));
+            });
+           } catch(e) {
+            console.log("Erreur sur /produit/ref"+ref+" : " + e);
+            res.end(JSON.stringify([]));
+        }
+    });
+
+    /*ajout d'un produit*/
+    app.post("/produit/add", (req, res) => {
+        //console.log("/membres/add avec "+JSON.stringify(req.body));
+        let id = req.body;
+        console.log("test");
+    });
+
 
     /* Liste des catégories de produits */
     app.get("/categories", (req, res) => {
@@ -786,6 +810,55 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                 res.end(JSON.stringify([]));
             }
         })
+    
+
+    /*upload image*/
+    app.post("/admin/upload/:id/:nom/:cat/:mat1/:prix/:desc", (req, res) => {
+        
+        console.log("image");
+        //console.log("nom"+req.params.nom);
+        
+            let produit = '{"ref":"'+req.params.id+'",'+
+            '"categorie":"'+req.params.cat+'",'+
+            '"nom":"'+req.params.nom+'",'+
+            '"prix":"'+req.params.prix+'",'+
+            '"materiaux":["'+req.params.mat1+'"],'+
+            '"description":"'+req.params.desc+'",'+
+            '"dispo":"1"}';
+            console.log("produit avant JSON avec "+produit);
+            let userJson = JSON.parse(produit);
+            try{
+                let result = db.collection("produits").insertOne(userJson, function(err, res2){
+                
+                });
+            }
+            catch(e) {
+                res.end(JSON.stringify({"resultat": 0, "message": e}));
+                console.log(e);
+            }
+        
+        var form = new Formidable.IncomingForm();
+
+        form.parse(req);
+
+        form.on('admin', function (name, file){
+            console.log(file);
+            console.log("test");
+        });
+
+        form.on('fileBegin', function (name, file){
+            //console.log(JSON.stringify(file));
+            file.path = __dirname + '/ESTELLE/src/assets/' + req.params.id+".jpg"; 
+            //console.log(file.path);
+        });
+
+        form.on('file', function (name, file){
+        });
+
+            res.end(JSON.stringify([]));
+            //res.sendFile(__dirname + '/index.html');
+        
+    });
 
     /* Connexion */
     app.post("/membres/connexion", (req, res) => {
@@ -875,3 +948,5 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
 
 });
+
+

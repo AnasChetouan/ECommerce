@@ -159,8 +159,8 @@ textarea {
 
 body {
 	font: 16px/30px Arial, Helvetica, sans-serif;
-	color: #949697;
-	background: #fff;
+	color: #000000;
+	background: #F3D6CF;
 	-webkit-text-size-adjust: none;
 	min-width: 320px;
 }
@@ -197,7 +197,7 @@ a:hover {
 	height: 93px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #dcdcdc;
+	border-bottom: 1px solid #000000;
 }
 
 #header .right-links {
@@ -211,7 +211,7 @@ a:hover {
 	width: 20px;
 	height: 20px;
 	margin: 5px 12px 0 0;
-        background: url(/app/images/ico_header.png) no-repeat;
+        background: url(/assets/ico_header.png) no-repeat;
 }
 
 #header .right-links span.ico-account {
@@ -231,7 +231,7 @@ a:hover {
 }
 
 #header .right-links a {
-	color: #656567;
+	color: #00000;
 }
 
 #logo {
@@ -241,7 +241,7 @@ a:hover {
 	float: left;
 	cursor: pointer;
 	text-indent: -9999em;
-        background: url(app/images/favicon.ico) no-repeat;
+        background: url(/assets/favicon.ico) no-repeat;
 }
 
 
@@ -249,7 +249,7 @@ a:hover {
 ------------------------------------------------------------------------------*/
 
 #menu ul {
-    border-bottom-width: 2px;
+    border-bottom-width: 1px;
     border-bottom-style: solid;
     padding : 0 ;
     margin : 0;
@@ -1132,7 +1132,9 @@ h1 {
 ------------------------------------------------------------------------------*/
 
 #footer {
+        margin-top: 5%;
 	clear: both;
+        background: #222224 url(assets/bg_footer.png);
 	padding: 27px 0 0;
 	color: #a5a5aa;
 	font-size: 14px;
@@ -1154,6 +1156,7 @@ h1 {
 
 #footer .ico {
 	display: inline-block;
+        background: url(assets/ico_footer.png);
 	width: 19px;
 	height: 19px;
 	margin: -5px 10px -5px 0;
@@ -1218,6 +1221,7 @@ h1 {
 	top: 4px;
 	right: 4px;
 	border: 0;
+        background: #b8bcbe url(assets/ico_plus.png) no-repeat 50% 50%;
 }
 
 #footer form button:hover{
@@ -1537,7 +1541,7 @@ h1 {
 	}
 
 	.entry .nav li {
-		border-left: 1px solid #cecece;
+		border-left: 1px solid #00000;
 		border-bottom: 0;
 	}
 

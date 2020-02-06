@@ -188,7 +188,7 @@ a:hover {
 	height: 93px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #dcdcdc;
+	border-bottom: 1px solid #00000;
 }
 
 #header .right-links {
@@ -239,7 +239,6 @@ a:hover {
 
 #menu {
 	text-align: center;
-	color: #737375;
 	font-size: 14px;
 	font-weight: 500;
 }
@@ -251,7 +250,7 @@ a:hover {
 }
 
 #menu a {
-	color: #737375;
+	color: #000000;
 }
 
 

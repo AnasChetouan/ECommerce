@@ -1,12 +1,12 @@
 [
     {"proprio":"user@mail.com",
         "contenu":[
-            {"ref":"BR-OAR1", "quantite":1}, {"ref":"BR-AR1", "quantite":2}
+            {"ref":"1", "quantite":1}, {"ref":"2", "quantite":2}
         ]  
     },
     {"proprio":"cocolepolo@gmail.com",
         "contenu":[
-            {"ref":"BR-OAR1", "quantite":1}, {"ref":"BR-AR1", "quantite":2}
+            {"ref":"1", "quantite":1}, {"ref":"3", "quantite":2}
         ]  
     }
 ]

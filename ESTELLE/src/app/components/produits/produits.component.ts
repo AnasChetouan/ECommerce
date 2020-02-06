@@ -3,10 +3,12 @@ import { AuthentificationService } from '../../services/authentification.service
 import { ActivatedRoute, Params } from '@angular/router';
 import { PanierService } from '../../services/panier.service';
 import { ProduitsService } from '../../services/produits.service';
+import { AdminService } from '../../services/admin.service';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 //import { NgForm } from "@angular/forms";
 //import { NgFlashMessageService } from "ng-flash-messages";
+
 
 @Component({
   selector: 'app-produits',
@@ -22,8 +24,10 @@ export class ProduitsComponent implements OnInit {
   private materiaux: String[] = new Array;
   name: string;
   price: string;
+  selectedFile: File;
+  cheminImage:any = "../../images/2.jpg";
 
-  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsService: ProduitsService, private router: Router, private PanierService: PanierService) { 
+  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsService: ProduitsService, private router: Router, private PanierService: PanierService, private adminService : AdminService) { 
     this.user = this.authService.getUser();
   }
 
@@ -50,11 +54,18 @@ export class ProduitsComponent implements OnInit {
     });
   }
 
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+  }
+
   onSubmit() {
-  this.produitsService.getProduitParRecherche(this.Precherche).subscribe(produits => {
+  
+this.produitsService.getProduitParRecherche(this.Precherche).subscribe(produits => {
         this.produits = produits;
         this.router.navigate(['/produits']);
       });
+
+
   }
  /*  this.route.params.subscribe((params: Params) => {
     console.log("Mesparams" + params);
