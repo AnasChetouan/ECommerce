@@ -1,4 +1,4 @@
-<div *ngIf="!(user|async)">
+<!--<div *ngIf="!(user|async)">
     <p class = "card-header"> En vous connectant, découvrez nos : </p>
     <div class = "card-body">
         <div *ngFor="let categorie of categories" class = "card">
@@ -14,4 +14,59 @@
                 (click)= "produitsParCategorie(categorie)"/></p>
         </div>
     </div>
-</div>
+</div>-->
+
+<div id="slider">
+        <ul>
+            <li style="background-color: #95818d">
+                <section class="quick-links">
+                    <article class="red" style="background-image: url(../../../assets/images/4.jpg)">
+                        <h3>Nos derniers</h3>
+                <h2>Bracelets</h2>
+                <br>
+                        <a (click)= "produitsParCategorie('Bracelets')">
+                            <div class="cell">
+                                <div class="text">
+                                    <h4><b>Bracelets</b></h4>
+                                    <hr>
+                                    <h3><b>Artisanaux</b></h3>
+                                    <hr>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </li>
+            <div id="content">
+                    <section class="products">
+                        <div *ngFor="let produit of produits" >
+                            <article class="prod">
+                                <a routerLink="/produit/{{produit['ref']}}"><img src="../../../assets/{{produit['ref']}}.jpg" alt="" style="width: 80%"></a>
+                        </article>
+                        </div>
+                    </section>
+                </div>
+            
+            <li style="background-color: #b392ac">
+                <section class="quick-links">
+                    <article class="red" style="background-image: url(images/3.jpg)">
+                         <h3><b>Decouvrez les</b></h3>
+                <h2><b>Bagues</b></h2>
+                <br>
+                        <a (click)= "produitsParCategorie('Bagues')">
+                            <div class="cell">
+                                <div class="text">
+                                    <h4><b>Bagues</b></h4>
+                                    <hr>
+                                    <h3><b>de tailles</b></h3>
+                                    <hr>
+                                    <p><b>48-50-52-54-56-58</b></p>
+                                </div>
+                            </div>
+                        </a>
+                    </article>
+                </section>
+            </li>
+        </ul>
+    </div>
+

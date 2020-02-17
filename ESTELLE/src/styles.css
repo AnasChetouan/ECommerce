@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import url('https://unpkg.com/bootstrap@4.1.3/dist/css/bootstrap.min.css');
 
 * {font-size: 10pt; }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; 
+       font-family: 'questa', 'arial', sans-serif; }
 
 
 html, body, div, span, applet, object, iframe,
@@ -101,7 +101,7 @@ input[type=submit]::-moz-focus-inner {
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 }
 
 strong {
@@ -197,13 +197,12 @@ a:hover {
 	height: 93px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #000000;
 }
 
 #header .right-links {
 	float: right;
 	padding: 13px 0 0;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 }
 
 #header .right-links span {
@@ -234,23 +233,26 @@ a:hover {
 	color: #00000;
 }
 
-#logo {
-	width: 7%;
+/*#logo {
+	width: 10%;
 	height: 75px;
 	display: block;
 	float: left;
 	cursor: pointer;
 	text-indent: -9999em;
-        background: url(/assets/favicon.ico) no-repeat;
-}
+        background: url(/assets/favicon.png) no-repeat;
+}*/
 
+#log {
+    width: 25%;
+    margin-left: 36%;
+}
 
 /* Navigation
 ------------------------------------------------------------------------------*/
 
 #menu ul {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    
     padding : 0 ;
     margin : 0;
     list-style-type: none;
@@ -292,7 +294,7 @@ a:hover {
 #slider {
 	text-align: center;
 	position: relative;
-	background: #000;
+	background: #F3D6CF;
 }
 
 #slider .bx-pager {
@@ -311,7 +313,6 @@ a:hover {
 }
 
 #slider .bx-pager a.active {
-	background: #fff;
 }
 
 #slider .bx-pager a {
@@ -332,7 +333,7 @@ a:hover {
 
 #slider h3 {
 	color: #a5b0d6;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 24px;
 	font-weight: 200;
 	letter-spacing: 4.5px;
@@ -344,7 +345,7 @@ a:hover {
 	width: 112px;
 	display: block;
 	color: #a5b1d5;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 10px;
 	font-weight: 500;
 	margin: 29px auto;
@@ -365,7 +366,7 @@ a:hover {
 }
 
 #slider h2 {
-	font-family: "Novecentowide";
+	font-family: "Questa";
 	color: #fff;
 	font-size: 48px;
 	line-height: 46px;
@@ -392,6 +393,7 @@ a:hover {
 }
 
 #content {
+        padding: 3%;
 	overflow: hidden;
 }
 
@@ -401,13 +403,18 @@ a:hover {
 }
 
 .products {
-	padding-bottom: 1px;
-	overflow: hidden;
+         
+	/*padding-bottom: 1px;
+	overflow: hidden;*/
+}
+
+.prod{
+    padding: 3%;
 }
 
 .products h4 {
 	color: #939597;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 24px;
 	padding: 0 0 22px;
 }
@@ -417,7 +424,7 @@ a:hover {
 	background-color: #cecece;
 	display: block;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	line-height: 40px;
@@ -436,16 +443,16 @@ a:hover {
 
 .products h3 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
 	margin: 22px 0 0;
 }
 
 .products article {
-	width: 235px;
-	padding: 18px 0 0;
-	height: 405px;
+	width: 31%;
+	padding: 2% 0 0;
+	height: 290px;
 	border: 2px solid #383838;
 	background-color: #fff;
 	text-align: center;
@@ -523,7 +530,7 @@ a:hover {
 	color: #939597;
 	border-bottom: 1px solid #d3d3d3;
 	font-size: 24px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-weight: 200;
 	padding: 21px 30px
 }
@@ -544,7 +551,7 @@ a:hover {
 
 .quick-links h4 {
 	color: #beb2a5;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 18px;
 	font-weight: normal;
 }
@@ -561,18 +568,18 @@ a:hover {
 }
 
 .quick-links h4 {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 18px;
 	text-transform: uppercase;
 }
 
 .quick-links h3 {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 24px;
 }
 
 .quick-links a p {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	padding-top: 14px;
 	color: #cd9b9f;
 	font-size: 18px;
@@ -677,7 +684,7 @@ h1 {
 	max-width: 568px;
 	border: 1px solid #d3d3d3;
 	margin: 48px auto 30px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	text-align: center;
 	font-size: 18px;
 	color: #949697;
@@ -692,15 +699,16 @@ h1 {
 }
 
 .btn-grey {
+        color: black;
 	display: inline-block;
 	padding: 0 55px;
 	line-height: 53px;
 	font-size: 12px;
 	font-weight: 500;
-	color: #fff;
+        border-width: px;
 	height: 53px;
-	font-family: "Novecentowide";
-	background-color: #373737;
+	font-family: 'questa', 'arial', sans-serif;
+	background-color: #fbfbfb;
 }
 
 .btn-grey:hover{
@@ -731,7 +739,7 @@ h1 {
 	color: #fff;
 	line-height: 40px;
 	height: 43px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	text-shadow: -1px -1px 0 rgba(12,13,13,.5);
@@ -753,7 +761,7 @@ h1 {
 
 .cart-table h3 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 13px;
 	padding: 5px 0;
 	font-weight: 600;
@@ -805,7 +813,7 @@ h1 {
 	line-height: 36px;
 	padding: 0 0 0 15px;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	border: 1px solid #cdcdcd;
@@ -829,7 +837,7 @@ h1 {
 	padding: 0 5px 0 15px;
 	line-height: normal;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	line-height: 36px;
 	font-weight: 500;
@@ -876,7 +884,7 @@ h1 {
 
 .product h1 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 24px;
 	font-weight: 600;
 	line-height: 30px;
@@ -900,7 +908,6 @@ h1 {
 }
 
 .entry .nav li:first-child {
-	border-left: 1px solid #cecece;
 }
 
 .entry .nav li:last-child {
@@ -916,12 +923,6 @@ h1 {
 }
 
 .entry .nav li {
-	border: 1px solid #cecece;
-	float: left;
-	border-left: 0;
-	background: #f2f2f2;
-	width: 33.3%;
-	padding: 0;
 }
 
 .entry .nav a {
@@ -932,7 +933,7 @@ h1 {
 	height: 38px;
 	text-decoration: none;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 }
@@ -940,7 +941,6 @@ h1 {
 .entry .nav .active {
 	position: relative;
 	z-index: 99;
-	background: #fff;
 	border-bottom-color: #fff;
 }
 
@@ -949,11 +949,11 @@ h1 {
 }
 
 .entry .tab-content {
-	display: none;
-	padding: 13px 29px 0;
-	margin-bottom: 39px;
-	margin-top: -1px;
-	border: 1px solid #cdcdcd;
+    padding: 2%;
+    margin-bottom: 39px;
+    margin-top: -1px;
+    border: 1px solid #1c1c1c;
+    background-color: #e3e3e3;
 }
 
 .entry .tab-content.active {
@@ -961,7 +961,6 @@ h1 {
 }
 
 .details .actions {
-	border: 1px solid #cecece;
 	padding: 12px;
 	margin: 18px 0;
 	overflow: hidden;
@@ -985,14 +984,14 @@ h1 {
 	line-height: 38px;
 	padding: 0 11px 0 5px;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 }
 
 .product h4 {
 	color: #939597;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 36px;
 	font-weight: 200;
 	line-height: 40px;
@@ -1037,7 +1036,7 @@ h1 {
 	vertical-align: top;
 	text-align: center;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	line-height: 29px;
@@ -1122,7 +1121,7 @@ h1 {
 #sidebar .widget h3 {
 	padding-bottom: 10px;
 	color: #fff;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'arial', sans-serif;
 	font-size: 14px;
 	font-weight: 500;
 }
@@ -1143,7 +1142,7 @@ h1 {
 
 #footer h3 {
 	color: #fff;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 14px;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -1236,7 +1235,6 @@ h1 {
 	padding: 15px 75px 15px 25px;
 	line-height: normal;
 	height: 52px;
-	background: #fff;
 }
 
 ::-webkit-input-placeholder {
@@ -1281,6 +1279,18 @@ h1 {
 
 /* Fonts
 ------------------------------------------------------------------------------*/ 
+/*@font-face {
+	font-family: 'Questa';
+    src: url('/fonts/questa_grande.otf');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+@font-face {
+  font-family: questa;
+  src: url('assets/questa_grande.otf') format("opentype");
+}
+
 
 @font-face {
     font-weight: bold;
@@ -1314,6 +1324,7 @@ h1 {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
 
 	#logo {
+                width : 10%;
 		background-size: cover;
 	}
 
@@ -1407,6 +1418,7 @@ h1 {
 	}
 
 	#logo {
+                width : 11%;
 		float: none;
 		margin: auto;
 		display: block;
@@ -1419,7 +1431,19 @@ h1 {
 }
 
 @media screen and (max-width: 768px) {
-
+        
+        #log{
+            width: 40%;
+            margin-left: 30%;
+        }
+    
+        #logo {
+                width : 15%;
+		float: none;
+		margin: auto;
+		display: block;
+	}
+    
 	#sidebar .ui-slider {
 		margin-right: 20px;
 	}
@@ -1469,20 +1493,7 @@ h1 {
 		margin: -5px 8px;
 	}
 
-	#slider .btn-more {
-		margin: 10px auto;
-	}
-
-	#slider h3 {
-		padding-top: 10px;
-		font-size: 13px;
-	}
-
-	#slider h2 {
-		font-size: 18px;
-		margin: -14px 0 -10px;
-		letter-spacing: 1px;
-	}
+	
 
 	.quick-links article {
 		max-width: 100%;
@@ -1491,9 +1502,7 @@ h1 {
 		padding: 10px 0;
 	}
 
-	#slider li {
-		height: 350px;
-	}
+	
 
 	.quick-links .text {
 		margin: 0 10px;
@@ -1541,8 +1550,6 @@ h1 {
 	}
 
 	.entry .nav li {
-		border-left: 1px solid #00000;
-		border-bottom: 0;
 	}
 
 	.details .actions a {
@@ -1592,42 +1599,21 @@ h1 {
 		float: none;
 		display: inline-block;
 	}
-
-	#menu .trigger {
-		display: block;
-		width: 35px;
-		height: 30px;
-		position: absolute;
-		top: 20px;
-		right: 10px;
-		cursor: pointer;
+        
+        #menu li {
+		padding: 19px 10px 21px;
 	}
+	
 
 	#menu ul {
-		top: 70px;
-		left: 0;
-		right: 0;
-		z-index: 999;
-		background: #fff;
-		position: absolute;
-		padding-bottom: 10px;
-		border-bottom: 1px solid #333;
-	}
+        position: initial;
+        padding: 4%;
+        margin : 0;
+        list-style-type: none;
+        }
 
-	#menu ul.active {
-		display: block;
-	}
 
-	#menu li {
-		padding: 5px 20px;
-		display: block;
-		overflow: hidden;
-		text-align: center;
-	}
-
-	#menu .container {
-		position: static;
-	}
+	
 
 	#header .container {
 		height: auto;
@@ -1698,7 +1684,14 @@ h1 {
 }
 
 @media screen and (max-width: 520px) {
-
+        
+        #logo {
+                width : 22%;
+		float: none;
+		margin: auto;
+		display: block;
+	}
+    
 	.last-products .bx-viewport {
 		width: 229px !important;
 	}
@@ -1723,10 +1716,43 @@ h1 {
 }
 
 @media screen and (max-width: 479px) {
-
+        
+        .products article {
+            width: 31%;
+        }
+        
 	#footer .col {
 		width: 100% !important;
 	}
+}
+
+@media screen and (max-width: 460px) {
+    
+    .products article {
+            width: 31%;
+            height: 133px;
+        }
+}
+
+@media screen and (max-width: 375px) {
+    
+    #log{
+        width: 60%;
+        margin-left: 20%;
+    }
+    
+    .products article {
+            width: 31%;
+            height: 116px;
+        }
+}
+
+@media screen and (max-width: 360px) {
+    
+    .products article {
+            width: 31%;
+            height: 110px;
+        }
 }
 
 @media screen and (max-width: 320px) {

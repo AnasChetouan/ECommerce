@@ -94,16 +94,28 @@ onSubmit() {
 	var mat1 = this.Precherche.materiau1;
 	var prix = this.Precherche.prix;
 	var desc = this.Precherche.description;
+  var mat2 = this.Precherche.materiau2;
 
     const formData = new FormData();
       formData.append('file', this.fileData);
       formData.append('infos', JSON.stringify(this.Precherche));
-      this.http.post('http://localhost:8888/admin/upload/'+this.produits.length+1+"/"+nom+"/"+cat+"/"+mat1+"/"+prix+"/"+desc, formData)
+      console.log(mat2);
+      if(mat2 == ""){
+        this.http.post('http://localhost:8888/admin/upload/'+this.produits.length+1+"/"+nom+"/"+cat+"/"+mat1+"/"+prix+"/"+desc, formData)
         .subscribe(res => {
           console.log(res);
           //this.uploadedFilePath = res.data.filePath;
           alert('success');
         });
+      }
+      else{
+        this.http.post('http://localhost:8888/admin/upload/'+this.produits.length+1+"/"+nom+"/"+cat+"/"+mat1+"/"+mat2+"/"+prix+"/"+desc, formData)
+        .subscribe(res => {
+          console.log(res);
+          //this.uploadedFilePath = res.data.filePath;
+          alert('success');
+        });
+      }
 
 	}
 

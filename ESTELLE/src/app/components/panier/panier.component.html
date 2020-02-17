@@ -6,6 +6,7 @@
           <th class="items">Bijoux</th>
           <th class="price">Prix</th>
           <th class="qnt">Quantité</th>
+          <th class="qnt">Taille</th>
         </tr>
         <tr *ngFor="let produit of panier">
           <td class="items" >
@@ -16,6 +17,9 @@
             </td>
           <td class="price">{{produit['prix']}}€ </td>
           <td class="qnt">{{produit['quantite']}}<button (click)="moinsUn(produit['ref'])" style="margin: 6%;width: 25%;"> - </button> <button (click)="plusUn(produit['ref'])" style="margin: 6%;width: 25%;"> + </button></td>
+          <td *ngIf=" (produit.dispo == 1) && (produit.categorie == 'Bagues')" class ="price"><input type="number" id="size" name="size" value =" 48" min="48" max="58" step="2"></td>
+          <td *ngIf=" (produit.dispo == 1) && (produit.categorie != 'Bagues')" class ="price">taille unique</td>
+
           </tr>
         </table>
       </div>

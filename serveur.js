@@ -25,9 +25,19 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
     /* Liste des produits */
     app.get("/produits", (req, res) => {
-        console.log("/produits");
         try{
-            db.collection("produits").find().toArray((err, documents) => {
+            db.collection("produits").find().sort( { ref: -1 } ).toArray((err, documents) => {
+                res.end(JSON.stringify(documents));
+            });
+        } catch(e) {
+            console.log("Erreur sur /produits : " + e);
+            res.end(JSON.stringify([]));
+        }
+    });
+
+    app.get("/produits/index", (req, res) => {
+        try{
+            db.collection("produits").find().sort( { ref: -1 } ).limit(3).toArray((err, documents) => {
                 res.end(JSON.stringify(documents));
             });
         } catch(e) {
@@ -38,9 +48,8 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
     app.get("/produits/categories/:categorie", (req, res) => {
         let categorie = req.params.categorie;
-        console.log("/produits/"+categorie);
         try{
-            db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+            db.collection("produits").find({categorie:categorie}).sort( { ref: -1 } ).toArray((err, documents) => {
                 res.end(JSON.stringify(documents));
             });
         } catch(e) {
@@ -68,13 +77,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
     app.post("/produit/add", (req, res) => {
         //console.log("/membres/add avec "+JSON.stringify(req.body));
         let id = req.body;
-        console.log("test");
     });
 
 
     /* Liste des catégories de produits */
     app.get("/categories", (req, res) => {
-        console.log("/categories");
         categories = [];
         try{
             db.collection("produits").find().toArray((err, documents) => {
@@ -82,7 +89,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                     if (!categories.includes(doc.categorie)) 
                         categories.push(doc.categorie);
                 }
-                console.log("Renvoi de "+JSON.stringify(categories));
                 res.end(JSON.stringify(categories));
             });
         } catch(e) {
@@ -95,7 +101,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         /* Liste des materiaux de produits */
 
         app.get("/materiaux", (req, res) => {
-            console.log("/materiaux");
             materiaux = [];
             try{
                 db.collection("produits").find().toArray((err, documents) => {
@@ -106,7 +111,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                         		materiaux.push(m);
                     	}
                     }
-                    console.log("Renvoi de "+JSON.stringify(materiaux));
                     res.end(JSON.stringify(materiaux));
                 });
             } catch(e) {
@@ -118,7 +122,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* Liste des materiauxPrincipaux de produits */
         app.get("/materiauxPrincipaux", (req, res) => {
-            console.log("/materiauxPrincipaux");
             materiaux = [];
             try{
                 db.collection("produits").find().toArray((err, documents) => {
@@ -126,7 +129,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                         if (!materiaux.includes(doc.materiaux.materiau1)) 
                         materiaux.push(doc.materiaux.materiau1);
                     }
-                    console.log("Renvoi de "+JSON.stringify(materiaux));
                     res.end(JSON.stringify(materiaux));
                 });
             } catch(e) {
@@ -137,7 +139,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* Liste des materiauxSecondaires de produits */
         app.get("/materiauxSecondaires", (req, res) => {
-            console.log("/materiauxSecondaires");
             materiaux = [];
             try{
                 db.collection("produits").find().toArray((err, documents) => {
@@ -145,7 +146,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                         if (!materiaux.includes(doc.materiaux.materiau2)) 
                         materiaux.push(doc.materiaux.materiau2);
                     }
-                    console.log("Renvoi de "+JSON.stringify(materiaux));
                     res.end(JSON.stringify(materiaux));
                 });
             } catch(e) {
@@ -157,13 +157,10 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         /* Liste des produits dans le panier, pour le user identifié par 'email' */
         // http://localhost:8888/panier/get/user@mail.com
         app.get("/panier/get/:email", (req, res) => {
-            console.log("/panier");
             let email = req.params.email;
             panierResultat = [];
-            console.log("email reçue:"+email);
 
             var retour = function() {
-                console.log("Panier retourné:"+JSON.stringify(panierResultat));
                 res.end(JSON.stringify(panierResultat));
             }
 
@@ -172,7 +169,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
                     for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
                         if (panier != undefined){
-                            console.log("contenu :"+JSON.stringify(panier.contenu));
                             var produits = panier.contenu;
 
                             var i = 1;
@@ -181,7 +177,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 if (p != undefined){
                                     /* Récupérer le produit par sa ref */
                                     try{
-                                        console.log("ref :"+ p.ref);
                                         db.collection("produits").find({"ref":p.ref}).toArray((err, produitsDetailles) => {
                                             //console.log("Produit:"+JSON.stringify(documents2[0]));
                                             var produit = produitsDetailles[0];
@@ -195,7 +190,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                             i++;
                                         });
                                     } catch(e) {
-                                        console.log("/produits/"+ ref + " : " + e);
                                         res.end(JSON.stringify([])); 
                                     }
                                 }
@@ -212,7 +206,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* Ajout produit dans panier */
         app.post("/panier/ajouter", (req, res) => {
-            console.log("/panier/ajouter"+JSON.stringify(req.body));
             let email = req.body.email;
             let ref = req.body.ref;
 
@@ -220,7 +213,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                 db.collection("paniers").find({proprio:email}).toArray((err, paniers) => {
                     for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
                         if (panier != undefined){
-                            console.log("contenu :"+JSON.stringify(panier.contenu));
                             var produits = panier.contenu;
                             var estDansPanier = false;
                             
@@ -241,7 +233,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                         {$set:{ "contenu" : produits}}
                                     );
 
-                                    console.log("Produit ajouté");
                                     res.end(JSON.stringify({"resultat": 1, "message": "L'ajout a bien été pris en compte!"}));
                                 } catch(e){
                                     console.log("Erreur ajout produit existant panier : "+e);
@@ -255,7 +246,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                         {"proprio":email},
                                         {$set:{ "contenu" : produits}}
                                     );
-                                    console.log("Produit ajouté");
                                     res.end(JSON.stringify({"resultat": 1, "message": "L'ajout a bien été pris en compte!"}));
 
                                 } catch(e){
@@ -276,15 +266,58 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             }
         });
 
+        app.post("/produit/addDispo/:ref", (req, res) => {
+            let refProduit = req.params.ref;
+            
+            try{
+                db.collection("produits").find({"ref":refProduit}).toArray((err, produitsDetailles) => {
+                    var produit = produitsDetailles[0];
+                        
+                           try{
+                                db.collection("produits").updateOne(
+                                    {"ref":refProduit},
+                                    {$set:{ "dispo" : 1}}
+                                    );
+                            } catch(e){
+                                console.log("erreur modif :"+e);
+                            }
+                        
+                });
+                } catch(e){
+                    console.log("erreur modif :"+e);
+                  }
+            });
+
+        app.post("/produit/delDispo/:ref", (req, res) => {
+            let refProduit = req.params.ref;
+            
+            try{
+                db.collection("produits").find({"ref":refProduit}).toArray((err, produitsDetailles) => {
+                    var produit = produitsDetailles[0];
+                        
+                           try{
+                                db.collection("produits").updateOne(
+                                    {"ref":refProduit},
+                                    {$set:{ "dispo" : 0}}
+                                    );
+                            } catch(e){
+                                console.log("erreur modif :"+e);
+                            }
+                        
+                });
+                } catch(e){
+                    console.log("erreur modif :"+e);
+                  }
+            });
+
         /* +1 dans la quantité d'un certain produit */
         app.post("/panier/ajoutUn", (req, res) => {
-            console.log("/panier/ajoutUn/"+JSON.stringify(req.body));
+            //console.log("/panier/ajoutUn/"+JSON.stringify(req.body));
             let email = req.body.email;
             let ref = req.body.ref;
             panierResultat = [];
 
             var retour = function() {
-                console.log("Panier retourné:"+JSON.stringify(panierResultat));
                 res.end(JSON.stringify(panierResultat));
             }
 
@@ -293,7 +326,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
                     for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
                         if (panier != undefined){
-                            console.log("contenu :"+JSON.stringify(panier.contenu));
                             var produits = panier.contenu;
 
                             var i = 1;
@@ -316,9 +348,8 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                                     {$set:{ "contenu" : produits}}
                                                 );
 
-                                                console.log(("p : "+JSON.stringify(p)));
                                                 //db.collection("paniers").findOneAndReplace({"email":email},{["contenu."+i-1]:p});
-                                                console.log("Update fini :");
+                                                //console.log("Update fini :");
                                             } catch(e){
                                                 console.log("erreur modif :"+e);
                                             }
@@ -335,7 +366,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                         i++;
                                     });
                                 } catch(e) {
-                                    console.log("/produits/"+ ref + " : " + e);
                                     res.end(JSON.stringify([])); 
                                 }
                             }
@@ -351,13 +381,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* -1 dans la quantité d'un certain produit */
             app.post("/panier/retraitUn", (req, res) => {
-                console.log("/panier/retraitUn/"+JSON.stringify(req.body));
                 let email = req.body.email;
                 let ref = req.body.ref;
                 panierResultat = [];
     
                 var retour = function() {
-                    console.log("Panier retourné:"+JSON.stringify(panierResultat));
                     res.end(JSON.stringify(panierResultat));
                 }
     
@@ -366,7 +394,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
     
                         for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
                             if (panier != undefined){
-                                console.log("contenu :"+JSON.stringify(panier.contenu));
                                 var produits = panier.contenu;
     
                                 var i = 1;
@@ -410,7 +437,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                             i++;
                                         });
                                     } catch(e) {
-                                        console.log("/produits/"+ ref + " : " + e);
+                                        
                                         res.end(JSON.stringify([])); 
                                     }
                                 }
@@ -426,7 +453,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* Supprimer un produit du panier */
         app.post("/panier/supprimer", (req, res) => {
-            console.log("/panier/supprimer/"+JSON.stringify(req.body));
             let email = req.body.email;
             let ref = req.body.ref;
             var panierResultat = [];
@@ -436,7 +462,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
                     for (let panier of paniers) { // Normalement 1 panier par user mais on parcourt avec une boucle for au cas où
                         if (panier != undefined){
-                            console.log("contenu :"+JSON.stringify(panier.contenu));
                             var produits = panier.contenu;
 
                             var i = 1;
@@ -469,14 +494,13 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                         
                                         //console.log("Contenu du panier à ce moment:"+JSON.stringify(panierResultat));
                                         if(i == nbProduitsAvant){// Si le produit actuel est le dernier à traiter, alors on retourne le panier, comme db.find est asynchrone, une solution est de procéder comme cela
-                                            console.log("Panier retourné:"+JSON.stringify(panierResultat));
                                             res.end(JSON.stringify(panierResultat));
                                         }
                                         i++; // On incrémente pour indiquer qu'on traite le produit suivant
 
                                     });
                                 } catch(e) {
-                                    console.log("/produits/"+ ref + " : " + e);
+                                    
                                     res.end(JSON.stringify([])); 
                                 }
                             }
@@ -492,12 +516,10 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
         /* Vide le panier */
         app.get("/panier/validerPanier/:email", (req, res) => {
-            console.log("/panier/viderPanier/"+JSON.stringify(req.body));
             let email = req.params.email;
             panierResultat = [];
 
             var retour = function() {
-                console.log("Panier retourné:"+JSON.stringify(panierResultat));
                 res.end(JSON.stringify(panierResultat));
             }
             
@@ -518,7 +540,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             let categorie = req.params.categorie;
             let materiau = req.params.materiau;
             retour = [];
-            console.log("/produits/"+categorie+"/"+materiau);
+            //console.log("/produits/"+categorie+"/"+materiau);
             try{
                 if (categorie === '*'){
                 db.collection("produits").find().toArray((err, documents) => {
@@ -539,7 +561,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
                     }
 
-                    console.log("Renvoi de "+JSON.stringify(retour));
+                    //console.log("Renvoi de "+JSON.stringify(retour));
                     res.end(JSON.stringify(retour));
                 });
                 }
@@ -562,7 +584,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
     
                         }
     
-                        console.log("Renvoi de "+JSON.stringify(retour));
                         res.end(JSON.stringify(retour));
                     });
                 }
@@ -578,17 +599,13 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             let prix1 = req.params.prix1;
             let prix2 = req.params.prix2;
             retour = [];
-            console.log(prix1);
-            console.log(prix2);
-            console.log(materiau);
-            console.log(categorie);
             //console.log(prix1);
             //console.log("/produits/"+categorie+"/"+materiau);
             try{
                 if (categorie === '*'){
                     if(prix1 === '' || prix2 === ''){
                         if(prix1 === '' && prix2 != ''){
-                            db.collection("produits").find().toArray((err, documents) => {
+                            db.collection("produits").find().sort( { ref: -1 } ).toArray((err, documents) => {
                                 if (materiau === '*'){
                                     for (let doc of documents) {
                                         if (!retour.includes(doc.materiaux)){ 
@@ -609,12 +626,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                         }
                                     }
                                 }
-                                console.log("Renvoi de "+JSON.stringify(retour));
                                 res.end(JSON.stringify(retour));
                             });
                         }
                         if(prix1 != '' && prix2 === ''){
-                            db.collection("produits").find().toArray((err, documents) => {
+                            db.collection("produits").find().sort( { ref: -1 } ).toArray((err, documents) => {
                                 if (materiau === '*'){
                                     for (let doc of documents) {
                                         if (!retour.includes(doc.materiaux)){
@@ -636,12 +652,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                     }
                                 }
             
-                                console.log("Renvoi de "+JSON.stringify(retour));
                                 res.end(JSON.stringify(retour));
                             });
                         }
                         if(prix1 === '' && prix2 === ''){
-                            db.collection("produits").find().toArray((err, documents) => {
+                            db.collection("produits").find().sort( { ref: -1 } ).toArray((err, documents) => {
                                 if (materiau === '*'){
                                     for (let doc of documents) {
                                         if (!retour.includes(doc.materiaux)){
@@ -663,13 +678,12 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                     }
                                 }
             
-                                console.log("Renvoi de "+JSON.stringify(retour));
                                 res.end(JSON.stringify(retour));
                             });
                         }
                     }
                     else {
-                    db.collection("produits").find().toArray((err, documents) => {
+                    db.collection("produits").find().sort( { ref: -1 } ).toArray((err, documents) => {
                         if (materiau === '*'){
                             for (let doc of documents) {
                                 if (!retour.includes(doc.materiaux)){
@@ -690,7 +704,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 }
                             }
                         }
-                        console.log("Renvoi de "+JSON.stringify(retour));
                         res.end(JSON.stringify(retour));
                     });
                     }
@@ -698,7 +711,7 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                 else {
                 if(prix1 === '' || prix2 === ''){
                     if(prix1 === '' && prix2 != ''){
-                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                        db.collection("produits").find({categorie:categorie}).sort( { ref: -1 } ).toArray((err, documents) => {
                             if (materiau === '*'){
                                 for (let doc of documents) {
                                     if (!retour.includes(doc.materiaux)){ 
@@ -719,12 +732,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                     }
                                 }
                             }
-                            console.log("Renvoi de "+JSON.stringify(retour));
                             res.end(JSON.stringify(retour));
                         });
                     }
                     if(prix1 != '' && prix2 === ''){
-                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                        db.collection("produits").find({categorie:categorie}).sort( { ref: -1 } ).toArray((err, documents) => {
                             if (materiau === '*'){
                                 for (let doc of documents) {
                                     if (!retour.includes(doc.materiaux)){
@@ -746,12 +758,11 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 }
                             }
         
-                            console.log("Renvoi de "+JSON.stringify(retour));
                             res.end(JSON.stringify(retour));
                         });
                     }
                     if(prix1 === '' && prix2 === ''){
-                        db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                        db.collection("produits").find({categorie:categorie}).sort( { ref: -1 } ).toArray((err, documents) => {
                             if (materiau === '*'){
                                 for (let doc of documents) {
                                     if (!retour.includes(doc.materiaux)){
@@ -773,13 +784,12 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 }
                             }
         
-                            console.log("Renvoi de "+JSON.stringify(retour));
                             res.end(JSON.stringify(retour));
                         });
                     }
                 }
                 else {
-                db.collection("produits").find({categorie:categorie}).toArray((err, documents) => {
+                db.collection("produits").find({categorie:categorie}).sort( { ref: -1 } ).toArray((err, documents) => {
                     if (materiau === '*'){
                         for (let doc of documents) {
                             if (!retour.includes(doc.materiaux)){
@@ -800,7 +810,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                             }
                         }
                     }
-                    console.log("Renvoi de "+JSON.stringify(retour));
                     res.end(JSON.stringify(retour));
                 });
                 }
@@ -812,10 +821,9 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         })
     
 
-    /*upload image*/
+    /*upload image avec 1seul mat*/
     app.post("/admin/upload/:id/:nom/:cat/:mat1/:prix/:desc", (req, res) => {
         
-        console.log("image");
         //console.log("nom"+req.params.nom);
         
             let produit = '{"ref":"'+req.params.id+'",'+
@@ -825,7 +833,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
             '"materiaux":["'+req.params.mat1+'"],'+
             '"description":"'+req.params.desc+'",'+
             '"dispo":"1"}';
-            console.log("produit avant JSON avec "+produit);
             let userJson = JSON.parse(produit);
             try{
                 let result = db.collection("produits").insertOne(userJson, function(err, res2){
@@ -842,8 +849,52 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
         form.parse(req);
 
         form.on('admin', function (name, file){
-            console.log(file);
-            console.log("test");
+         
+        });
+
+        form.on('fileBegin', function (name, file){
+            //console.log(JSON.stringify(file));
+            file.path = __dirname + '/ESTELLE/src/assets/' + req.params.id+".jpg"; 
+            //console.log(file.path);
+        });
+
+        form.on('file', function (name, file){
+        });
+
+            res.end(JSON.stringify([]));
+            //res.sendFile(__dirname + '/index.html');
+        
+    });
+
+    /*upload image avec 2 mat*/
+    app.post("/admin/upload/:id/:nom/:cat/:mat1/:mat2/:prix/:desc", (req, res) => {
+        
+        //console.log("nom"+req.params.nom);
+        
+            let produit = '{"ref":"'+req.params.id+'",'+
+            '"categorie":"'+req.params.cat+'",'+
+            '"nom":"'+req.params.nom+'",'+
+            '"prix":"'+req.params.prix+'",'+
+            '"materiaux":["'+req.params.mat1+'","'+req.params.mat2+'"],'+
+            '"description":"'+req.params.desc+'",'+
+            '"dispo":"1"}';
+            let userJson = JSON.parse(produit);
+            try{
+                let result = db.collection("produits").insertOne(userJson, function(err, res2){
+                
+                });
+            }
+            catch(e) {
+                res.end(JSON.stringify({"resultat": 0, "message": e}));
+                console.log(e);
+            }
+        
+        var form = new Formidable.IncomingForm();
+
+        form.parse(req);
+
+        form.on('admin', function (name, file){
+         
         });
 
         form.on('fileBegin', function (name, file){
@@ -862,7 +913,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
 
     /* Connexion */
     app.post("/membres/connexion", (req, res) => {
-        console.log("/membres/connexion avec "+JSON.stringify(req.body));
         try{
             db.collection("membres")
             .find(req.body)
@@ -909,7 +959,6 @@ MongoClient.connect(url, {useUnifiedTopology: true,useNewUrlParser: true}, (err,
                                 '"admin":"0"}';
                                 //console.log("user avant JSON avec "+user);
                                 let userJson = JSON.parse(user);
-                                console.log("/membres/add avec "+JSON.stringify(userJson));
                                 try{
                                     let result = db.collection("membres").insertOne(userJson, function(err, res2){
                                     if(err) {}

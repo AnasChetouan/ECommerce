@@ -10,7 +10,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-	margin: 0;
+	margin: 1%;
 	padding: 0;
 	border: 0;
 	font-size: 100%;
@@ -1713,6 +1713,17 @@ h1 {
 		right: auto;
 		left: 10px;
 	}
+        
+        .products article {
+	width: 100%;
+	padding: 5%;
+        height: 1%;
+	border: 2px solid #d3d3d3;
+	background-color: #fff;
+	text-align: center;
+	float: left;
+	margin: 1%;
+        }
 }
 
 @media screen and (max-width: 479px) {

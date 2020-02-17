@@ -1,6 +1,8 @@
 <div class="container">
 			<div id="content" class="full">
+<a routerLink="/produits" href="#" class="btn-grey" style="font-weight: bold; margin-bottom: 3%;">Retour</a>
 				<div class="product" *ngFor="let p of produit" >
+
 					<div class="image">
 						<img src="../../../assets/{{p['ref']}}.jpg" alt="">
 					</div>
@@ -24,10 +26,13 @@
 						</div>
 						<div class="actions">
 							<a *ngIf="!(user|async)" routerLink="/membres/connexion" class="btn-grey">connectez vous pour ajouter au panier</a>
-							<a *ngIf="p.dispo == 0" class="btn-grey">Produit Indisponible</a>
+							<a *ngIf="p.dispo == 0" class="btn-grey" style="background-color: red;font-weight: bold;"><b>Produit Indisponible</b></a>
 							<a *ngIf="(user|async) && (p.dispo == 1)" (click)="onAddToCart(p['ref'])" class="btn-grey">Ajouter au panier</a>
+							<a routerLink="/produit/{{p['ref']}}" href="#" *ngIf="(user|async) && (p.dispo == 0) && (admin() == 1)" (click)="onAddDispo(p['ref'])" class="btn-grey">Ajouter</a>
+							<a routerLink="/produit/{{p['ref']}}" href="#" *ngIf="(user|async) && (p.dispo == 1) && (admin() == 1)" (click)="onDelDispo(p['ref'])" class="btn-grey">Retirer</a>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>

@@ -2,32 +2,29 @@
     <div class="container">
         <div class="trigger">
     <ul *ngIf="!(user|async)">
-            <li class ="nav-item">
-                <a class="nav-link active" routerLink="/membres/connexion">Se connecter</a>
+    		<li class="nav-item">
+                <a class="nav-link disabled" routerLink="/produits"><b>Liste des produits</b></a>
             </li>
             <li class ="nav-item">
-                <a class="nav-link active" routerLink="/membres/newUser">Inscription</a>
+                <a class="nav-link active" routerLink="/membres/connexion"><b>Se connecter</b></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" routerLink="/produits">Liste des produits</a>
+            <li class ="nav-item">
+                <a class="nav-link active" routerLink="/membres/newUser"><b>Inscription</b></a>
             </li>
     </ul>
      <ul *ngIf="user|async">
             <li class="nav-item">
-                <a class="nav-link active" routerLink="/produits">Liste des produits</a>
+                <a class="nav-link active" routerLink="/produits"><b>Liste des produits</b></a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link active" routerLink="/panier">Panier</a>
+                    <a class="nav-link active" routerLink="/panier"><b>Panier</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" routerLink="/categories">Nos categories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" (click)="deconnexion()">Déconnexion</a>
+                <a class="nav-link active" (click)="deconnexion()"><b>Déconnexion</b></a>
             </li>
                 
             <li class="nav-item" *ngIf="admin() == 1">
-                <a class="nav-link active" routerLink="/admin">Interface Admin</a>
+                <a class="nav-link active" routerLink="/admin"><b>Interface Admin</b></a>
             </li>
         </ul>
         </div>

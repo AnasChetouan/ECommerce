@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthentificationService } from '../../services/authentification.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PanierService } from '../../services/panier.service';
@@ -6,6 +6,9 @@ import { ProduitsService } from '../../services/produits.service';
 import { AdminService } from '../../services/admin.service';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { LOCAL_STORAGE, WebStorageService } from 'angular-webstorage-service';
 //import { NgForm } from "@angular/forms";
 //import { NgFlashMessageService } from "ng-flash-messages";
 
@@ -27,7 +30,8 @@ export class ProduitComponent implements OnInit {
   selectedFile: File;
   idRefProduit : string;
 
-  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsService: ProduitsService, private router: Router, private PanierService: PanierService, private adminService : AdminService) { 
+
+  constructor(private route: ActivatedRoute, private authService: AuthentificationService, private produitsService: ProduitsService, private router: Router, private PanierService: PanierService, private adminService : AdminService, @Inject(LOCAL_STORAGE) private storage : WebStorageService,private http: HttpClient ) { 
 
   this.idRefProduit = this.route.snapshot.params.id;
     this.user = this.authService.getUser();
@@ -65,6 +69,36 @@ export class ProduitComponent implements OnInit {
     
     });
   }*/
+
+
+
+  onAddDispo(ref){
+  
+    this.http.post('http://localhost:8888/produit/addDispo/'+ref,"")
+        .subscribe(res => {
+          console.log(res);
+          //this.uploadedFilePath = res.data.filePath;
+          alert('success');
+        });
+  //this.produitsService.addDispo(ref);
+
+  }
+
+  onDelDispo(ref){
+  
+  this.http.post('http://localhost:8888/produit/delDispo/'+ref,"")
+        .subscribe(res => {
+          console.log(res);
+          //this.uploadedFilePath = res.data.filePath;
+          alert('success');
+        });
+  //this.produitsService.addDispo(ref);
+
+  }
+
+  admin(){
+    return this.storage.get('admin');
+  }
   
   onAddToCart(produit){
     var e;

@@ -27,12 +27,25 @@ export class ProduitsService {
         return this.http.get(this.urlBase+'produits');
     }
 
+    getProduitsIndex(): Observable<any> {
+        return this.http.get(this.urlBase+'produits/index');
+    }
+
     getCategories(): Observable<any> {
         return this.http.get(this.urlBase+'categories');
     }
 
     getMateriaux(): Observable<any> {
         return this.http.get(this.urlBase+'materiaux');
+    }
+
+    addDispo(ref): Observable<any>{
+        console.log(this.urlBase+'produit/addDispo/'+ref);
+        return this.http.post(this.urlBase+'produit/addDispo/'+ref, httpOptions);
+    }
+
+    delDispo(ref){
+        this.http.post(this.urlBase+'produit/delDispo/'+ref, httpOptions);
     }
 
     getProduitParRef(ref): Observable<any> {

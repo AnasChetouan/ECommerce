@@ -1,3 +1,5 @@
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -92,7 +94,7 @@ input[type=submit]::-moz-focus-inner {
 
 h1, h2, h3, h4, h5, h6 {
 	font-weight: normal;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 }
 
 strong {
@@ -151,7 +153,6 @@ textarea {
 body {
 	font: 16px/30px Arial, Helvetica, sans-serif;
 	color: #949697;
-	background: #fff;
 	-webkit-text-size-adjust: none;
 	min-width: 320px;
 }
@@ -194,7 +195,7 @@ a:hover {
 #header .right-links {
 	float: right;
 	padding: 13px 0 0;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 }
 
 #header .right-links span {
@@ -246,7 +247,7 @@ a:hover {
 #menu li {
 	padding: 19px 19px 21px;
 	display: inline-block;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 }
 
 #menu a {
@@ -307,7 +308,6 @@ a:hover {
 }
 
 #slider .bx-pager a.active {
-	background: #fff;
 }
 
 #slider .bx-pager a {
@@ -328,7 +328,7 @@ a:hover {
 
 #slider h3 {
 	color: #a5b0d6;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 24px;
 	font-weight: 200;
 	letter-spacing: 4.5px;
@@ -340,7 +340,7 @@ a:hover {
 	width: 112px;
 	display: block;
 	color: #a5b1d5;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 10px;
 	font-weight: 500;
 	margin: 29px auto;
@@ -361,7 +361,7 @@ a:hover {
 }
 
 #slider h2 {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	color: #fff;
 	font-size: 48px;
 	line-height: 46px;
@@ -403,7 +403,7 @@ a:hover {
 
 .products h4 {
 	color: #939597;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 24px;
 	padding: 0 0 22px;
 }
@@ -413,7 +413,7 @@ a:hover {
 	background-color: #cecece;
 	display: block;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	line-height: 40px;
@@ -432,7 +432,7 @@ a:hover {
 
 .products h3 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
 	margin: 22px 0 0;
@@ -519,7 +519,7 @@ a:hover {
 	color: #939597;
 	border-bottom: 1px solid #d3d3d3;
 	font-size: 24px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-weight: 200;
 	padding: 21px 30px
 }
@@ -540,7 +540,7 @@ a:hover {
 
 .quick-links h4 {
 	color: #beb2a5;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 18px;
 	font-weight: normal;
 }
@@ -557,18 +557,18 @@ a:hover {
 }
 
 .quick-links h4 {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 18px;
 	text-transform: uppercase;
 }
 
 .quick-links h3 {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 24px;
 }
 
 .quick-links a p {
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	padding-top: 14px;
 	color: #cd9b9f;
 	font-size: 18px;
@@ -673,7 +673,7 @@ h1 {
 	max-width: 568px;
 	border: 1px solid #d3d3d3;
 	margin: 48px auto 30px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	text-align: center;
 	font-size: 18px;
 	color: #949697;
@@ -695,7 +695,7 @@ h1 {
 	font-weight: 500;
 	color: #fff;
 	height: 53px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	background-color: #373737;
 }
 
@@ -727,7 +727,7 @@ h1 {
 	color: #fff;
 	line-height: 40px;
 	height: 43px;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	text-shadow: -1px -1px 0 rgba(12,13,13,.5);
@@ -749,7 +749,7 @@ h1 {
 
 .cart-table h3 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 13px;
 	padding: 5px 0;
 	font-weight: 600;
@@ -801,7 +801,7 @@ h1 {
 	line-height: 36px;
 	padding: 0 0 0 15px;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	border: 1px solid #cdcdcd;
@@ -825,7 +825,7 @@ h1 {
 	padding: 0 5px 0 15px;
 	line-height: normal;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	line-height: 36px;
 	font-weight: 500;
@@ -872,7 +872,7 @@ h1 {
 
 .product h1 {
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 24px;
 	font-weight: 600;
 	line-height: 30px;
@@ -928,7 +928,7 @@ h1 {
 	height: 38px;
 	text-decoration: none;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 }
@@ -936,7 +936,6 @@ h1 {
 .entry .nav .active {
 	position: relative;
 	z-index: 99;
-	background: #fff;
 	border-bottom-color: #fff;
 }
 
@@ -981,14 +980,14 @@ h1 {
 	line-height: 38px;
 	padding: 0 11px 0 5px;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 }
 
 .product h4 {
 	color: #939597;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 36px;
 	font-weight: 200;
 	line-height: 40px;
@@ -1033,7 +1032,7 @@ h1 {
 	vertical-align: top;
 	text-align: center;
 	color: #656567;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 12px;
 	font-weight: 500;
 	line-height: 29px;
@@ -1118,7 +1117,7 @@ h1 {
 #sidebar .widget h3 {
 	padding-bottom: 10px;
 	color: #fff;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 14px;
 	font-weight: 500;
 }
@@ -1137,7 +1136,7 @@ h1 {
 
 #footer h3 {
 	color: #fff;
-	font-family: "Novecentowide";
+	font-family: 'questa', 'ariafont-famill', sans-serif;
 	font-size: 14px;
 	text-transform: uppercase;
 	font-weight: 500;
@@ -1273,6 +1272,7 @@ h1 {
 
 /* Fonts
 ------------------------------------------------------------------------------*/ 
+
 
 @font-face {
     font-weight: bold;
@@ -1590,10 +1590,7 @@ h1 {
 		left: 0;
 		right: 0;
 		z-index: 999;
-		background: #fff;
-		position: absolute;
 		padding-bottom: 10px;
-		border-bottom: 1px solid #333;
 	}
 
 	#menu ul.active {
